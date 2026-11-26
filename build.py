@@ -1378,10 +1378,6 @@ body:has(.rot-lavori) .ph-hero::after{display:none}
 /* i numeri sotto la fila non si mostrano (26/11, Bryan); i bottoni restano per chi usa la tastiera */
 .rt-dots{display:none!important}
 .rot-sez{margin-bottom:-40px}
-/* fascia clienti in home tra l'arco e "Storie vere": poco spazio sopra (c'è già la sfumatura), niente doppio spazio sotto (26/11, Bryan) */
-body>section.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti:has(+ .rot-home){padding-top:8px!important;padding-bottom:40px!important}
-.sfuma:has(+ section.clienti + .rot-home){height:110px!important}
-body>section.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home{padding-top:88px!important}
 /* in home la fila sta sotto il titolo "Storie vere": stesso stacco tra titolo e contenuto delle altre sezioni */
 .rot-home .rt{margin-top:var(--home-rt,48px)}
 .rt-dots-vecchio{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
@@ -2352,7 +2348,7 @@ home_servizi_c = home_servizi  # scura: in home l'unico blocco chiaro è l'arco
 rec_s = rec.replace('<section class="rec chiara">', '<section class="rec">', 1).replace('Cosa dicono <span class="grad-t">i clienti</span>', 'La nostra <span class="grad-t">pagella</span>', 1)
 home_analisi_c = home_analisi
 pagina("index.html", "Topiko Lab", "index.html",
-       "\n".join([scena, home_arco, clienti, home_casi_s, home_servizi_c, rec_s, home_analisi_c]), scena=True)  # clienti subito sopra "Storie vere" (26/11, Bryan)
+       "\n".join([scena, clienti, home_arco, home_casi_s, home_servizi_c, rec_s, home_analisi_c]), scena=True)  # clienti sotto l'apertura: provata sopra "Storie vere" il 26/11, Bryan l'ha rimessa qui
 
 # come lavoriamo: passi della pagina Servizi, con la curva che si accende scorrendo (js/passi.js)
 PASSI = [("Ti ascoltiamo", "Ci racconti la tua azienda e cosa vuoi ottenere. Prima di proporre qualcosa guardiamo sito, social e inserzioni di oggi."),
