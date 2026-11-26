@@ -1361,7 +1361,8 @@ body:has(#rot) .ph-hero::after{display:none}
 .rc-ins img,.rc-ins video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
 .rc-ins.v{right:7.5cqw;top:14cqw;width:21cqw;aspect-ratio:9/16;transform:rotate(3deg)}
 .rc-ins.f{right:25cqw;bottom:6.5cqw;width:13.5cqw;aspect-ratio:1;transform:rotate(-5deg)}
-/* quarta card: mosaico nitido dei lavori, gradiente Topiko che si muove */
+/* quarta card: nera, senza foto, solo testo (26/11, Bryan) */
+.rc.rc-fine{background:#000}
 .rc-fine .coll{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr)}
 .rc-fine .coll img{width:100%;height:100%;object-fit:cover}
 .rc-fine .anim{position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,rgba(155,3,255,.8),rgba(255,0,130,.62),rgba(255,122,47,.55),rgba(155,3,255,.8));background-size:300% 100%;animation:rcMove 9s linear infinite;mix-blend-mode:multiply;opacity:.85}
@@ -1374,7 +1375,10 @@ body:has(#rot) .ph-hero::after{display:none}
 .rc-gira{position:absolute;z-index:3;right:6cqw;bottom:6cqw;width:14cqw;height:14cqw;border-radius:50%;border:2px solid rgba(255,255,255,.8);display:grid;place-items:center;background:rgba(13,10,18,.35);transition:transform .5s var(--ease),background .4s}
 .rc-gira svg{width:46%;height:46%}
 .rc-fine:hover .rc-gira{background:var(--grad);border-color:transparent;transform:rotate(-45deg)}
-.rt-dots{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
+/* i numeri sotto la fila non si mostrano (26/11, Bryan); i bottoni restano per chi usa la tastiera */
+.rt-dots{display:none!important}
+.rot-sez{margin-bottom:-40px}
+.rt-dots-vecchio{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
 .rt-dots button{height:34px;min-width:34px;padding:0 12px;border-radius:100px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#B9B2C4;font:700 13px/1 'Aileron';letter-spacing:.04em;transition:background .3s,color .3s,border-color .3s,min-width .4s var(--ease)}
 .rt-dots button[aria-current=true]{background:var(--grad);border-color:transparent;color:#fff;min-width:78px}
 .rt-dots button[aria-current=true]::after{content:" / 04";opacity:.8}
@@ -1427,7 +1431,7 @@ const card = k => {
   <span class="rc-ins v">${vid(c.v)}</span><span class="rc-ins f">${img(c.f, c.nome)}</span>
   <span class="rc-top"><span class="rc-nome">${c.nome}</span><span class="rc-sett">${c.sett}</span></span>
   <span class="rc-testo">${c.pre ? `<span class="rc-pre">${c.pre}</span>` : ''}<span class="rt-num">${c.num}</span><span class="rc-lab">${c.lab}</span><span class="rc-tit">${c.tit}</span><span class="rc-ln">Leggi il caso ${ARR}</span></span><span class="rc-dim"></span></a>`; }
- return `<a class="rc rc-fine" href="${S}contatti.html" aria-label="Il prossimo potrebbe essere il tuo progetto. Scrivici"><span class="coll">${COLL.map(f => `<img src="${P}${f}.webp" alt="" loading="lazy" decoding="async" draggable="false">`).join('')}</span><span class="anim"></span><span class="vel2"></span>
+ return `<a class="rc rc-fine" href="${S}contatti.html" aria-label="Il prossimo potrebbe essere il tuo progetto. Scrivici">
   <span class="rc-top"><span class="rc-sett">Il prossimo passo</span></span>
   <span class="rc-testo"><h2>Il prossimo potrebbe essere <span class="grad-t">il tuo progetto</span></h2><span class="rc-ln">Scrivici ${ARR}</span></span>
   <span class="rc-gira" aria-hidden="true">${ARR}</span><span class="rc-dim"></span></a>`;
