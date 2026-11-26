@@ -549,10 +549,29 @@ a.u-p:hover .u-et,a.u-p:focus-visible .u-et{color:#fff}
 .hs-elenco li:last-child .hs-voce{border-bottom:1px solid var(--linea)}
 .hs-voce b{display:block;font-size:16.5px;font-weight:800;letter-spacing:-.01em}
 .hs-voce>span>span{display:block;font-size:14.5px;line-height:1.4;color:var(--testo-2);margin-top:2px}
-.hs-ico{display:grid;place-items:center;width:34px;height:34px;background:var(--veli);color:var(--testo)}
-.hs-ico svg{width:18px;height:18px}
+.hs-ico{display:grid;place-items:center;width:40px;height:40px;background:var(--veli);color:var(--testo)}
+.hs-ico svg{width:22px;height:22px}
 .hs-voce.acceso{background:var(--veli)}
 .hs-voce.acceso .hs-ico{background:var(--grad);color:#fff}
+/* finestra del servizio: si apre cliccando una voce dell'elenco o una pillola del mondo (js/finestra.js) */
+.sv-fin{position:fixed;inset:0;margin:auto!important;height:fit-content;max-height:calc(100dvh - 32px);overflow:auto;border:1px solid rgba(255,255,255,.14);background:#16121D;color:#fff;padding:0;
+  max-width:min(560px,calc(100vw - 32px));width:100%;font-family:'Aileron',sans-serif;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.sv-fin::backdrop{background:rgba(8,6,12,.62);backdrop-filter:blur(6px)}
+.sv-fin[open]{animation:sv-in .35s cubic-bezier(.16,1,.3,1)}
+@keyframes sv-in{from{opacity:0;transform:translateY(16px)}}
+.sv-in{padding:34px 34px 30px;position:relative}
+.sv-ic{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9B03FF,#FF0082 55%,#FF7A2F);color:#fff}
+.sv-ic svg{width:24px;height:24px}
+.sv-fin h3{font-size:clamp(24px,3vw,30px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:20px 0 10px;color:#fff}
+.sv-fin .sv-breve{font-size:18px;line-height:1.45;color:rgba(255,255,255,.82);margin:0}
+.sv-fin h4{font-family:'Bitcount Single',monospace;font-weight:400;font-size:15px;letter-spacing:.02em;margin:26px 0 8px;
+  background:linear-gradient(90deg,#9B03FF,#FF0082,#FF7A2F);-webkit-background-clip:text;background-clip:text;color:transparent;width:max-content}
+.sv-fin ul{margin:0;padding-left:20px}.sv-fin li,.sv-fin .sv-come{font-size:16px;line-height:1.5;color:rgba(255,255,255,.78);margin:4px 0 0}
+.sv-x{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.sv-x:hover{background:rgba(255,255,255,.1)}
+.sv-az{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.sv-fin .btn-v{color:#fff!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.28)!important}
+@media (max-width:600px){.sv-in{padding:28px 22px 24px}}
 @media (max-width:960px){
   .hs-griglia{grid-template-columns:1fr;grid-template-areas:"tit" "ruota" "elenco" "btn"}
   .home-servizi .mondo{margin-top:24px}
@@ -583,7 +602,7 @@ a.u-p:hover .u-et,a.u-p:focus-visible .u-et{color:#fff}
 .hs-elenco{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
 .hs-voce{grid-template-columns:30px 1fr!important;align-items:center!important;padding:8px 6px!important}
 .hs-elenco li:nth-last-child(2) .hs-voce{border-bottom:1px solid var(--linea)}
-.hs-ico{width:30px!important;height:30px!important}
+.hs-ico{width:34px!important;height:34px!important}.hs-ico svg{width:19px!important;height:19px!important}
 .hs-voce b{font-size:15px!important}
 .m-p{font-size:13px}
 @media (max-width:960px){.servizi-g{grid-template-columns:1fr!important}.servizio summary{min-height:0}}
@@ -1111,9 +1130,20 @@ function init(){lw=sez.clientWidth;io.observe(sez);avvia()}
         b[0] = Math.min(W - hw * .9 - 2, Math.max(hw * .9 + 2, c + dx)); b[1] = Math.min(W - hh - 2, Math.max(hh + 2, c + dy));
         return {p, v, a: proj(v, R), b};
       });
+      // almeno l'80% delle pillole resta visibile: spariscono solo le più nascoste dietro (2 su 15, così anche durante la dissolvenza restano almeno 12), con una dissolvenza
+      const zs = info.map(o => o.v[2]).sort((x, y) => x - y), nasc = Math.max(0, Math.floor(info.length * .2) - 1);
+      const thr = nasc ? (zs[nasc - 1] + zs[nasc]) / 2 : -9, fw = nasc ? Math.max(.02, Math.min(.15, zs[nasc] - zs[nasc - 1])) : 1;
+      const alfaDi = o => o.p === fuoco ? 1 : Math.min(1, Math.max(0, .5 + (o.v[2] - thr) / fw));
+      // con più pillole in vista alcune si toccherebbero: quella più dietro si sposta in alto o in basso quanto basta
+      const vis2 = info.filter(o => alfaDi(o) > 0).sort((x, y) => y.v[2] - x.v[2]);
+      for (let giro2 = 0; giro2 < 4; giro2++) for (let i = 0; i < vis2.length; i++) for (let j = i + 1; j < vis2.length; j++) {
+        const A = vis2[i], B = vis2[j], [aw, ah] = misurePil[pil.indexOf(A.p)] || [40, 16], [bw, bh] = misurePil[pil.indexOf(B.p)] || [40, 16];
+        const ox = aw * .9 + bw * .9 + 6 - Math.abs(A.b[0] - B.b[0]), oy = ah + bh + 6 - Math.abs(A.b[1] - B.b[1]);
+        if (ox > 0 && oy > 0) { const su = B.b[1] < A.b[1] || (B.b[1] === A.b[1] && B.b[1] < c); B.b[1] = Math.min(W - bh - 2, Math.max(bh + 2, B.b[1] + (su ? -oy : oy))); }
+      }
       const filo = (o, sopra) => {
         const acc = o.p === fuoco;
-        ctx.globalAlpha = acc ? 1 : .55 * Math.min(1, Math.max(0, (o.v[2] + .05) / .2));
+        ctx.globalAlpha = acc ? 1 : .55 * alfaDi(o) * (o.v[2] < 0 ? .55 : 1);
         if (acc) { const g = ctx.createLinearGradient(o.a[0], o.a[1], o.b[0], o.b[1]); g.addColorStop(0, '#9B03FF'); g.addColorStop(.5, '#FF0082'); g.addColorStop(1, '#FF7A2F'); ctx.strokeStyle = g; ctx.lineWidth = 2.2; }
         else { ctx.strokeStyle = '#8A6FB0'; ctx.lineWidth = 1; }
         ctx.beginPath(); ctx.moveTo(o.a[0], o.a[1]); ctx.lineTo(o.b[0], o.b[1]); ctx.stroke();
@@ -1121,7 +1151,8 @@ function init(){lw=sez.clientWidth;io.observe(sez);avvia()}
         ctx.beginPath(); ctx.arc(o.a[0], o.a[1], acc ? 3.4 : 2.4, 0, 6.2832); ctx.fill();
       };
       // dietro: resta solo il punto d'aggancio, senza filo né pillola
-      info.filter(o => o.v[2] < -0.05 && o.p !== fuoco).forEach(o => { ctx.globalAlpha = .5; ctx.fillStyle = '#9B03FF'; ctx.beginPath(); ctx.arc(o.a[0], o.a[1], 2.2, 0, 6.2832); ctx.fill(); ctx.globalAlpha = 1; });
+      info.filter(o => o.v[2] < 0 && o.p !== fuoco && alfaDi(o) > 0).forEach(o => filo(o));
+      info.filter(o => o.v[2] < 0 && o.p !== fuoco && alfaDi(o) === 0).forEach(o => { ctx.globalAlpha = .5; ctx.fillStyle = '#9B03FF'; ctx.beginPath(); ctx.arc(o.a[0], o.a[1], 2.2, 0, 6.2832); ctx.fill(); ctx.globalAlpha = 1; });
       // sfera: prima i punti dietro, poi quelli davanti
       const rp = Math.max(1.1, R * .0105);
       for (const pass of [0, 1]) for (const pt of punti) {
@@ -1131,16 +1162,16 @@ function init(){lw=sez.clientWidth;io.observe(sez);avvia()}
         ctx.beginPath(); ctx.arc(q[0], q[1], rp * (.55 + .6 * luce), 0, 6.2832); ctx.fill();
       }
       ctx.globalAlpha = 1;
-      info.filter(o => o.v[2] >= -0.05 || o.p === fuoco).forEach(o => { ctx.save(); ctx.globalAlpha = 1; filo(o, true); ctx.restore(); });
+      info.filter(o => o.v[2] >= 0 || o.p === fuoco).forEach(o => { ctx.save(); ctx.globalAlpha = 1; filo(o, true); ctx.restore(); });
       for (const o of info) {
-        const z = o.v[2], s = .85 + .2 * Math.max(0, z);
+        const z = o.v[2], s = z < 0 ? .8 + .05 * (1 + z) : .85 + .2 * z;
         const acc = o.p === fuoco;
         o.p.style.transform = `translate(${o.b[0].toFixed(1)}px,${o.b[1].toFixed(1)}px) translate(-50%,-50%) scale(${(acc ? Math.max(1.05, s) : s).toFixed(3)})`;
         // si vede solo quando il testo è leggibile: davanti o di lato verso davanti; dietro sparisce con una dissolvenza veloce
-        const vis = acc || z > -0.05, alfa = acc ? 1 : Math.min(1, Math.max(0, (z + .05) / .2));
+        const a0 = alfaDi(o), alfa = acc ? 1 : a0 * (z < 0 ? .82 + .18 * (1 + z) : 1);
         o.p.style.opacity = alfa.toFixed(3); o.p.style.visibility = alfa > 0 ? 'visible' : 'hidden';
         o.p.style.pointerEvents = alfa > .5 ? '' : 'none';
-        o.p.style.zIndex = acc ? 7 : 5;
+        o.p.style.zIndex = acc ? 7 : (z < 0 ? 4 : 5);
       }
     };
     const giro = ts => {
@@ -2014,7 +2045,7 @@ def pagina(nome, titolo, attiva, corpo, scena=False):
 <script src="js/topiko.js"></script>
 {'<script src="js/scena.js"></script>' if scena else ''}
 <script src="js/leggero.js"></script>
-{'<script src="js/servizi.js"></script>' if 'servizi-g' in corpo else ''}{'<script src="js/anello.js"></script>' if 'ta-anello' in corpo else ''}{'<script src="js/arco.js"></script>' if 'id="arco"' in corpo else ''}{'<script src="js/mondo.js"></script>' if 'data-mondo' in corpo else ''}{'<script src="js/portfolio.js"></script>' if 'id="portfolio"' in corpo else ''}{'<script src="js/ruota.js"></script>' if 'id="rot"' in corpo else ''}{'<script src="vendor/matter.min.js"></script><script src="js/pillole.js"></script>' if 'id="pil"' in corpo else ''}{'<script src="js/passi.js"></script>' if 'id="come-lavoriamo"' in corpo else ''}
+{'<script src="js/servizi.js"></script>' if 'servizi-g' in corpo else ''}{'<script src="js/anello.js"></script>' if 'ta-anello' in corpo else ''}{'<script src="js/arco.js"></script>' if 'id="arco"' in corpo else ''}{'<script src="js/mondo.js"></script><script src="js/finestra.js"></script>' if 'data-mondo' in corpo else ''}{'<script src="js/portfolio.js"></script>' if 'id="portfolio"' in corpo else ''}{'<script src="js/ruota.js"></script>' if 'id="rot"' in corpo else ''}{'<script src="vendor/matter.min.js"></script><script src="js/pillole.js"></script>' if 'id="pil"' in corpo else ''}{'<script src="js/passi.js"></script>' if 'id="come-lavoriamo"' in corpo else ''}
 {'<script src="js/entra.js"></script>' if 'data-entra' in corpo else ''}
 {'<script src="js/recensioni.js"></script>' if 'recensioni-google' in corpo else ''}
 {'<script src="js/valuta.js"></script>' if 'id="valuta"' in corpo else ''}
@@ -2171,8 +2202,29 @@ CORTI = {"strategia": "Strategia", "analisi": "Analisi", "brand": "Brand book", 
          "amazon": "Amazon", "email": "Email", "ai": "AI"}
 
 
+# icone dei servizi a puntini tondi, nello stile del Bitcount (26/11, Davide): griglia 7x7, "#" = un puntino
+PUNTI = {
+ "strategia": ["..###..", ".#...#.", "#.....#", "#..#..#", "#.....#", ".#...#.", "..###.."],
+ "analisi":   ["#......", "#.....#", "#....#.", "#.#.#..", "#..#...", "#......", "#######"],
+ "brand":     [".#####.", ".#...#.", ".#...#.", ".#...#.", ".#.#.#.", ".##.##.", ".#...#."],
+ "cataloghi": ["###.###", "#.#.#.#", "#.#.#.#", "#.#.#.#", "#.#.#.#", "#.#.#.#", "###.###"],
+ "social":    [".#####.", "#.....#", "#..#..#", "#..##.#", "#..#..#", "#.....#", ".#####."],
+ "shooting":  [".......", "..##...", "#######", "#..#..#", "#.#.#.#", "#..#..#", "#######"],
+ "grafica":   [".....##", "....###", "...###.", "..###..", ".###...", ".##....", "#......"],
+ "meta":      ["...#...", "...#...", ".#.#...", ".#.#.#.", ".#.#.#.", ".#.#.#.", "#######"],
+ "google":    ["#......", "##.....", "###....", "####...", "###....", "#.##...", "...##.."],
+ "sito":      ["#######", "#.#.#.#", "#######", "#.....#", "#.....#", "#.....#", "#######"],
+ "blog":      ["#######", ".......", "#####..", ".......", "#######", ".......", "####..."],
+ "seo":       [".###...", "#...#..", "#...#..", "#...#..", ".###...", "....##.", ".....##"],
+ "amazon":    ["..###..", ".#...#.", "#######", "#.....#", "#.....#", "#.....#", "#######"],
+ "email":     [".......", "#######", "##...##", "#.#.#.#", "#..#..#", "#.....#", "#######"],
+ "ai":        ["...#...", "...#...", "..###..", "#######", "..###..", "...#...", "...#..."],
+}
+
+
 def icona(k):
-    return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">{ICO[k]}</svg>'
+    c = "".join(f'<circle cx="{x + .5}" cy="{y + .5}" r=".56"/>' for y, riga in enumerate(PUNTI[k]) for x, ch in enumerate(riga) if ch == "#")
+    return f'<svg class="ico-p" viewBox="-.1 -.1 7.2 7.2" fill="currentColor" aria-hidden="true">{c}</svg>'
 
 
 def scheda_servizio(k, tit, chiuso, punti, come, caso_s):
@@ -2195,6 +2247,36 @@ RUOTA = f"""<div class="mondo rv" data-mondo role="group" aria-label="Topiko Lab
       <div class="m-logo"><img src="img/logo-topiko.png" alt="Topiko Lab"></div>
       {pillole_mondo}
     </div>"""
+# finestra del servizio: i testi sono quelli di SERVIZI, i bottoni usano frasi già sul sito
+FINESTRA = f"""<dialog class="sv-fin" id="sv-fin" aria-labelledby="sv-tit"><div class="sv-in">
+    <button class="sv-x" type="button" aria-label="Chiudi">×</button>
+    <div class="sv-ic"></div><h3 id="sv-tit"></h3><p class="sv-breve"></p><div class="sv-corpo"></div>
+    <div class="sv-az"><a class="btn btn-g" href="contatti.html">Raccontaci la tua azienda</a><a class="btn btn-v" href="servizi.html">Guarda i servizi</a></div>
+  </div></dialog>"""
+import json as _json
+_FIN_DATI = _json.dumps({k: {"tit": t, "breve": b, "punti": pp, "come": c, "ico": icona(k)} for k, t, b, pp, c, *_r in SERVIZI}, ensure_ascii=False)
+(QUI / "js/finestra.js").write_text("""// finestra del servizio: cliccando una voce dell'elenco o una pillola del mondo si apre la descrizione del lavoro
+(() => {
+  const fin = document.getElementById('sv-fin'); if (!fin) return;
+  // nei Servizi il bottone "Guarda i servizi" porterebbe alla stessa pagina: via
+  if (/servizi\.html$/.test(location.pathname)) fin.querySelector('.sv-az .btn-v')?.remove();
+  const D = """ + _FIN_DATI + """;
+  const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
+  document.addEventListener('click', e => {
+    const v = e.target.closest('.hs-voce,.m-p'); if (!v || !D[v.dataset.k]) return;
+    e.preventDefault(); const s = D[v.dataset.k];
+    fin.querySelector('.sv-ic').innerHTML = s.ico;
+    fin.querySelector('h3').textContent = s.tit;
+    fin.querySelector('.sv-breve').textContent = s.breve;
+    fin.querySelector('.sv-corpo').innerHTML =
+      (s.punti.length ? '<h4>Cosa facciamo</h4><ul>' + s.punti.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' : '') +
+      (s.come ? '<h4>Come funziona</h4><p class="sv-come">' + esc(s.come) + '</p>' : '');
+    fin.showModal();
+  });
+  fin.querySelector('.sv-x').addEventListener('click', () => fin.close());
+  fin.addEventListener('click', e => { if (e.target === fin) fin.close(); });
+})();
+""", encoding="utf-8")
 # elenco della home: nome e descrizione presi parola per parola dalle schede dei Servizi
 elenco_servizi = "".join(f'<li><a class="hs-voce" data-k="{k}" href="servizi.html" title="{chiuso}"><span class="hs-ico">{icona(k)}</span><b>{tit}</b></a></li>' for k, tit, chiuso, *_r in SERVIZI)
 
@@ -2295,6 +2377,7 @@ home_servizi = f"""<section class="sezione home-servizi">
     <ul class="hs-elenco rv">{elenco_servizi}</ul>
     <div class="u-azione rv"><a class="btn btn-v mag" href="servizi.html">Guarda i servizi {FRECCIA}</a></div>
   </div>
+  {FINESTRA}
 </section>"""
 # stessa ruota nei Servizi, da sola: titolo ed elenco li danno già l'apertura e le schede
 # nei Servizi la stessa sezione della home (elenco a sinistra, mondo a destra), senza il bottone "Guarda i servizi"
