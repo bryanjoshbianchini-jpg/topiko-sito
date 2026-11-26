@@ -553,25 +553,18 @@ a.u-p:hover .u-et,a.u-p:focus-visible .u-et{color:#fff}
 .hs-ico svg{width:22px;height:22px}
 .hs-voce.acceso{background:var(--veli)}
 .hs-voce.acceso .hs-ico{background:var(--grad);color:#fff}
-/* finestra del servizio: si apre cliccando una voce dell'elenco o una pillola del mondo (js/finestra.js) */
-.sv-fin{position:fixed;inset:0;margin:auto!important;height:fit-content;max-height:calc(100dvh - 32px);overflow:auto;border:1px solid rgba(255,255,255,.14);background:#16121D;color:#fff;padding:0;
-  max-width:min(560px,calc(100vw - 32px));width:100%;font-family:'Aileron',sans-serif;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
-.sv-fin::backdrop{background:rgba(8,6,12,.62);backdrop-filter:blur(6px)}
-.sv-fin[open]{animation:sv-in .35s cubic-bezier(.16,1,.3,1)}
-@keyframes sv-in{from{opacity:0;transform:translateY(16px)}}
-.sv-in{padding:34px 34px 30px;position:relative}
-.sv-ic{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9B03FF,#FF0082 55%,#FF7A2F);color:#fff}
-.sv-ic svg{width:24px;height:24px}
-.sv-fin h3{font-size:clamp(24px,3vw,30px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:20px 0 10px;color:#fff}
-.sv-fin .sv-breve{font-size:18px;line-height:1.45;color:rgba(255,255,255,.82);margin:0}
-.sv-fin h4{font-family:'Bitcount Single',monospace;font-weight:400;font-size:15px;letter-spacing:.02em;margin:26px 0 8px;
+/* spiegazione del servizio: si apre sotto la voce cliccata, su tutta la larghezza dell'elenco (js/finestra.js) */
+.hs-elenco li.hs-apri{grid-column:1/-1;display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.16,1,.3,1)}
+.hs-elenco li.hs-apri.su{grid-template-rows:1fr}
+.hs-apri>div{overflow:hidden;min-height:0}
+.hs-apri .sv-in{margin:2px 0 14px;padding:20px 22px 22px;background:var(--veli);border-left:3px solid #E10AE9;color:var(--testo)}
+.hs-apri .sv-breve{margin:0;font-size:16px;line-height:1.45;font-weight:600;color:var(--testo)}
+.hs-apri h4{font-family:'Bitcount Single',monospace;font-weight:400;font-size:14px;letter-spacing:.02em;margin:16px 0 6px;
   background:linear-gradient(90deg,#9B03FF,#FF0082,#FF7A2F);-webkit-background-clip:text;background-clip:text;color:transparent;width:max-content}
-.sv-fin ul{margin:0;padding-left:20px}.sv-fin li,.sv-fin .sv-come{font-size:16px;line-height:1.5;color:rgba(255,255,255,.78);margin:4px 0 0}
-.sv-x{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:22px;line-height:1;cursor:pointer}
-.sv-x:hover{background:rgba(255,255,255,.1)}
-.sv-az{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.sv-fin .btn-v{color:#fff!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.28)!important}
-@media (max-width:600px){.sv-in{padding:28px 22px 24px}}
+.hs-apri ul{margin:0;padding-left:18px}.hs-apri li,.hs-apri .sv-come{font-size:15px;line-height:1.5;color:var(--testo-2);margin:3px 0 0}
+.hs-apri .sv-az{margin-top:16px}
+.hs-voce.aperto{background:var(--veli)}.hs-voce.aperto .hs-ico{background:var(--grad);color:#fff}
+.hs-voce{cursor:pointer;scroll-margin-top:110px}
 @media (max-width:960px){
   .hs-griglia{grid-template-columns:1fr;grid-template-areas:"tit" "ruota" "elenco" "btn"}
   .home-servizi .mondo{margin-top:24px}
@@ -2271,34 +2264,44 @@ RUOTA = f"""<div class="mondo rv" data-mondo role="group" aria-label="Topiko Lab
       <div class="m-logo"><img src="img/logo-topiko.png" alt="Topiko Lab"></div>
       {pillole_mondo}
     </div>"""
-# finestra del servizio: i testi sono quelli di SERVIZI, i bottoni usano frasi già sul sito
-FINESTRA = f"""<dialog class="sv-fin" id="sv-fin" aria-labelledby="sv-tit"><div class="sv-in">
-    <button class="sv-x" type="button" aria-label="Chiudi">×</button>
-    <div class="sv-ic"></div><h3 id="sv-tit"></h3><p class="sv-breve"></p><div class="sv-corpo"></div>
-    <div class="sv-az"><a class="btn btn-g" href="contatti.html">Raccontaci la tua azienda</a><a class="btn btn-v" href="servizi.html">Guarda i servizi</a></div>
-  </div></dialog>"""
+# spiegazione del servizio sotto la voce: i testi sono quelli di SERVIZI e TESTI_FINESTRA
+FINESTRA = ""
 import json as _json
 _FIN_DATI = _json.dumps({k: {"tit": t, "breve": b, "punti": pp, "come": c, "ico": icona(k)} for k, t, b, pp, c, *_r in SERVIZI}, ensure_ascii=False)
-(QUI / "js/finestra.js").write_text("""// finestra del servizio: cliccando una voce dell'elenco o una pillola del mondo si apre la descrizione del lavoro
+(QUI / "js/finestra.js").write_text("""// spiegazione del servizio: cliccando una voce dell'elenco (o la sua pillola nel mondo) si apre sotto la voce, su tutta la riga
 (() => {
-  const fin = document.getElementById('sv-fin'); if (!fin) return;
-  // nei Servizi il bottone "Guarda i servizi" porterebbe alla stessa pagina: via
-  if (location.pathname.endsWith("servizi.html")) fin.querySelector('.sv-az .btn-v')?.remove();
+  const elenco = document.querySelector('.hs-elenco'); if (!elenco) return;
   const D = """ + _FIN_DATI + """;
   const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
+  const contatti = !location.pathname.endsWith('contatti.html');
+  let aperta = null;
+  const chiudi = () => {
+    if (!aperta) return; const {li, voce} = aperta; aperta = null;
+    voce.classList.remove('aperto'); voce.setAttribute('aria-expanded', 'false');
+    li.classList.remove('su'); setTimeout(() => li.remove(), 450);
+  };
+  const apri = (voce, scorri) => {
+    const k = voce.dataset.k, s = D[k]; if (!s) return;
+    const era = aperta && aperta.voce === voce; chiudi(); if (era) return;
+    const voci = [...elenco.children].filter(x => !x.classList.contains('hs-apri'));
+    const col = getComputedStyle(elenco).gridTemplateColumns.split(' ').length || 1;
+    const i = voci.indexOf(voce.closest('li')), fine = voci[Math.min(voci.length - 1, Math.floor(i / col) * col + col - 1)];
+    const li = document.createElement('li'); li.className = 'hs-apri'; li.id = 'sv-' + k;
+    li.innerHTML = '<div><div class="sv-in"><p class="sv-breve">' + esc(s.breve) + '</p>' +
+      (s.punti.length ? '<h4>Cosa facciamo</h4><ul>' + s.punti.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' : '') +
+      (s.come ? '<h4>Come funziona</h4><p class="sv-come">' + esc(s.come) + '</p>' : '') +
+      (contatti ? '<div class="sv-az"><a class="btn btn-g" href="contatti.html">Raccontaci la tua azienda</a></div>' : '') + '</div></div>';
+    fine.after(li); requestAnimationFrame(() => requestAnimationFrame(() => li.classList.add('su')));
+    voce.classList.add('aperto'); voce.setAttribute('aria-expanded', 'true'); voce.setAttribute('aria-controls', li.id);
+    aperta = {li, voce};
+    if (scorri) setTimeout(() => voce.scrollIntoView({behavior: 'smooth', block: 'start'}), 60);
+  };
   document.addEventListener('click', e => {
     const v = e.target.closest('.hs-voce,.m-p'); if (!v || !D[v.dataset.k]) return;
-    e.preventDefault(); const s = D[v.dataset.k];
-    fin.querySelector('.sv-ic').innerHTML = s.ico;
-    fin.querySelector('h3').textContent = s.tit;
-    fin.querySelector('.sv-breve').textContent = s.breve;
-    fin.querySelector('.sv-corpo').innerHTML =
-      (s.punti.length ? '<h4>Cosa facciamo</h4><ul>' + s.punti.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' : '') +
-      (s.come ? '<h4>Come funziona</h4><p class="sv-come">' + esc(s.come) + '</p>' : '');
-    fin.showModal();
+    e.preventDefault();
+    const voce = v.classList.contains('hs-voce') ? v : elenco.querySelector('.hs-voce[data-k="' + v.dataset.k + '"]');
+    if (voce) apri(voce, v !== voce);
   });
-  fin.querySelector('.sv-x').addEventListener('click', () => fin.close());
-  fin.addEventListener('click', e => { if (e.target === fin) fin.close(); });
 })();
 """, encoding="utf-8")
 # elenco della home: nome e descrizione presi parola per parola dalle schede dei Servizi
