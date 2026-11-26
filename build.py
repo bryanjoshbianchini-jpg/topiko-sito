@@ -2196,6 +2196,30 @@ SERVIZI = [
   ["Foto del prodotto in ambienti difficili da fotografare.", "Video brevi per social e inserzioni.", "Più versioni dello stesso contenuto, nei formati che servono."],
   "Ci mandi le foto del prodotto o l'idea. Noi prepariamo immagini e video. Controlliamo ogni contenuto prima di mandartelo. Tu dici cosa cambiare prima dell'uso.", None),
 ]
+# testi della finestra di ogni servizio: "Cosa facciamo" e "Come funziona" scritti da Claude su richiesta di Davide (26/11),
+# da riportare nel Figma. Amazon, email e AI avevano già i loro testi e restano quelli.
+TESTI_FINESTRA = {
+ "strategia": (["Ascoltiamo te e i tuoi clienti.", "Decidiamo a chi parlare e con quale voce.", "Scegliamo i canali giusti e il ritmo delle uscite."], COME_STRATEGIA),
+ "analisi": (["Guardiamo come comunicano i tuoi concorrenti: sito, social e inserzioni.", "Cerchiamo cosa chiedono i clienti nel tuo settore.", "Ti diciamo dove sei più forte e dove puoi crescere."],
+             "Raccogliamo i dati e li mettiamo in un documento chiaro. Te lo presentiamo in un incontro. Da lì partono le scelte della strategia."),
+ "brand": (["La voce del marchio: come parli ai tuoi clienti.", "I messaggi chiave da usare ovunque.", "Il brand book con logo, colori, font e regole d'uso."],
+           "Partiamo da chi sei e da cosa ti rende diverso. Scriviamo voce e messaggi, poi li mettiamo nel brand book. Così chi lavora per te usa sempre le stesse regole."),
+ "cataloghi": (["Cataloghi di prodotto, stampati o digitali.", "Brochure, volantini e materiali per le fiere.", "Grafiche coordinate con il resto della tua comunicazione."],
+               "Raccogliamo prodotti, foto e testi. Prepariamo l'impaginato e lo correggi con noi. Alla fine ti diamo i file pronti per la stampa o per il web."),
+ "social": (["Il piano dei contenuti del mese.", "Foto, video e grafiche per ogni post.", "Testi dei post, scritti con la tua voce."], COME_SOCIAL),
+ "shooting": (["Foto di prodotti, ambienti e persone.", "Video e reel girati nella tua azienda.", "Montaggio e consegna nei formati che servono."],
+              "Prepariamo con te la scaletta delle riprese. Veniamo in azienda e giriamo. Poi scegliamo le foto migliori e montiamo i video."),
+ "grafica": (["Grafiche per post e storie.", "Animazioni brevi per reel e inserzioni.", "Tutto nello stile e nei colori del tuo marchio."],
+             "Partiamo dal tuo brand book o, se non c'è, dal logo e dai colori. Prepariamo le grafiche e te le mandiamo. Tu ci dici cosa cambiare."),
+ "meta": (["Campagne su Facebook e Instagram che portano richieste o ordini.", "Testi, foto e video delle inserzioni.", "Un report breve ogni mese, con parole semplici."], COME_INSERZIONI),
+ "google": (["Annunci su Google quando i clienti cercano quello che fai.", "Testi scritti con le parole che usano i tuoi clienti.", "Un report breve ogni mese, con parole semplici."], COME_INSERZIONI),
+ "sito": (["Struttura e testi delle pagine.", "Grafica coordinata con il tuo marchio.", "Moduli di contatto che portano richieste."],
+          "Partiamo da chi visita il sito e da cosa deve trovare. Scriviamo i testi e prepariamo la grafica. Lo mettiamo online e guardiamo le richieste che arrivano."),
+ "blog": (["Gli argomenti, scelti dalle domande dei clienti.", "Articoli chiari, scritti con la tua voce.", "Immagini e pubblicazione sul sito."], COME_SITO),
+ "seo": (["Controlliamo il sito: cosa aiuta e cosa frena le ricerche.", "Pagine scritte con le parole che usano i clienti.", "Testi chiari, che ChatGPT e simili possono citare."],
+         "Guardiamo come ti trovano oggi su Google. Sistemiamo le pagine e ne scriviamo di nuove. Ogni mese controlliamo visite e richieste."),
+}
+SERVIZI = [(k, t, b, *TESTI_FINESTRA.get(k, (pp, c)), caso) for k, t, b, pp, c, caso in SERVIZI]
 # etichette corte per le pillole del mondo e per quelle che cadono
 CORTI = {"strategia": "Strategia", "analisi": "Analisi", "brand": "Brand book", "cataloghi": "Cataloghi", "social": "Social", "shooting": "Shooting",
          "grafica": "Grafica", "meta": "Meta Ads", "google": "Google Ads", "sito": "Sito", "blog": "Blog", "seo": "SEO e GEO",
