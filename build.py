@@ -2068,10 +2068,10 @@ for a, b in [('href="#contatti"', 'href="contatti.html"'), ('href="#valuta"', 'h
     scena = scena.replace(a, b)
 scena = re.sub(r'\s*<div class="step [^>]*>.*?</div>', '', scena, flags=re.S)
 scena = re.sub(r'\s*<div class="prog">.*?</div>', '', scena, flags=re.S)
-# titolo della home come nel Figma (26/11): a sinistra, senza etichetta, "topic giusto." in Bitcount col gradiente
+# titolo della home come nel Figma (26/11): a sinistra, senza etichetta, "topic giusto" senza punto in Bitcount col gradiente
 for a, b in [('      <div class="eyebrow h-in">Agenzia di comunicazione per PMI</div>\n', ''),
              ('<span>Il tuo brand,</span>', '<span>Il tuo brand</span>'),
-             ('nel <em>topic giusto.</em>', 'nel <em class="grad-t">topic giusto.</em>'),
+             ('nel <em>topic giusto.</em>', 'nel <em class="grad-t">topic giusto</em>'),
              ('Seguiamo la comunicazione delle piccole e medie imprese, dai social alle fiere. Parli con una persona sola, che conosce la tua azienda e coordina chi ci lavora.', 'Un referente unico per tutta la comunicazione della tua azienda.'),
              ('Parliamo del tuo progetto', 'Raccontaci la tua azienda'),
              ('Fai valutare il tuo profilo</a>', 'Analizziamo il tuo sito, gratis</a>')]:
