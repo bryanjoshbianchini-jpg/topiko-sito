@@ -2259,7 +2259,7 @@ _FIN_DATI = _json.dumps({k: {"tit": t, "breve": b, "punti": pp, "come": c, "ico"
 (() => {
   const fin = document.getElementById('sv-fin'); if (!fin) return;
   // nei Servizi il bottone "Guarda i servizi" porterebbe alla stessa pagina: via
-  if (/servizi\.html$/.test(location.pathname)) fin.querySelector('.sv-az .btn-v')?.remove();
+  if (location.pathname.endsWith("servizi.html")) fin.querySelector('.sv-az .btn-v')?.remove();
   const D = """ + _FIN_DATI + """;
   const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
   document.addEventListener('click', e => {
