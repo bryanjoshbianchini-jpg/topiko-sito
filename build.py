@@ -175,6 +175,8 @@ a.rec-card:hover{border-color:rgba(255,255,255,.25)}
 .foot nav{flex-wrap:wrap;row-gap:10px}
 html,body{overflow-x:clip!important}
 .mega{display:inline-block;font-size:clamp(56px,13.5vw,210px);line-height:1;padding:.04em .06em .14em 0;max-width:100%}
+/* invito in fondo: è una frase intera, quindi più piccolo della vecchia parola "Parliamone." */
+.mega.mega-frase{font-size:clamp(40px,6.6vw,104px);line-height:1.02;max-width:15ch;text-wrap:balance}
 .squadra-foto{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:auto;background:var(--notte-2);border:1px solid var(--linea)}
 .squadra-foto .ph{position:relative;inset:auto;aspect-ratio:1400/1680}
 .squadra-foto::after{display:none}
@@ -588,7 +590,7 @@ a.u-p:hover .u-et,a.u-p:focus-visible .u-et{color:#fff}
 @media (max-width:760px){.m-p{font-size:12px;padding:.45em .7em .45em .45em}.hs-elenco{column-gap:12px}.hs-voce b{font-size:13.5px!important}}
 /* Servizi: sottotitolo dell'apertura, titolo lungo di Come lavoriamo, frase grande */
 .pil-sub{margin-top:18px;font-size:clamp(17px,1.6vw,22px);font-style:italic;color:var(--testo-2)}
-.ps-sx h2{font-size:clamp(30px,3.3vw,50px)!important}
+.ps-sx h2{font-size:clamp(30px,4.45vw,66px)!important}
 .frase-grande p{font-size:clamp(30px,4vw,58px);font-weight:800;line-height:1.08;letter-spacing:-.03em;max-width:1100px;text-wrap:balance}
 /* blocchi grandi a spigolo vivo; restano tondi bottoni, pillole, avatar e icone */
 .vbox,.lavoro,.casi-grid .lavoro,.servizio,.persona,.persona .foto,.rec-card,.post,.passi-g div,.cs-num div,.recapiti div,form,.contatti-g form,.cs-cover,.articolo .ph,.squadra-foto,.rec-google .mappa,.rec-google .widget,.rec-grid div,.mini,.tile,.card,.card .in,.ta-lato,.consenso,.nav.aperto ul,.ps-fasce div,.s-caso{border-radius:0!important}
@@ -764,21 +766,26 @@ TITOLI = r"""
 @media (max-width:760px){.h-copy h1{font-size:clamp(40px,12.4vw,64px)}.h-copy h1 .riga{white-space:normal}.h-copy p{font-size:18px}}
 
 /* ===== Chi siamo: come lavoriamo, passi che si accendono scorrendo (idea della storia di Bliss) ===== */
-.passi-scorri{position:relative;height:calc(100vh + 4 * 55vh)}
+.passi-scorri{position:relative;height:calc(100vh + 5 * 55vh)}
 .ps-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4vh,48px);padding-top:90px;overflow:hidden}
 .ps-pin>.wrap{width:100%}
-.ps-alto{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:60px;align-items:start}
-.ps-sx h2{font-size:clamp(36px,4.4vw,64px);line-height:.98;margin-top:18px}
+.ps-alto{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,3vh,34px);align-items:start}
+.ps-sx h2{font-size:clamp(34px,min(6.1vw,10.5vh),94px);line-height:.98;margin-top:14px}
+.ps-razzo{font-size:.8em;line-height:1;vertical-align:.05em}
+.ps-lead{margin-top:clamp(12px,2vh,22px);font-size:clamp(18px,1.6vw,23px);font-weight:700;line-height:1.3;letter-spacing:-.01em;max-width:900px;color:var(--testo)}
 .ps-tab{display:flex;flex-wrap:wrap;gap:6px 26px;border-bottom:1px solid var(--linea);padding-bottom:0}
 .ps-tab button{background:none;border:0;padding:0 0 12px;font:500 15px/1.2 "Aileron",sans-serif;color:var(--testo-3);cursor:pointer;position:relative}
 .ps-tab button[aria-selected=true]{color:var(--testo)}
 .ps-tab button[aria-selected=true]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--grad);border-radius:2px}
-.ps-testi{position:relative;min-height:150px;margin-top:26px}
-.ps-testi article{position:absolute;inset:0 0 auto 0;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.ps-testi{position:relative;display:grid;margin-top:22px}
+.ps-testi article{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
 .ps-testi article.on{opacity:1;transform:none}
 .ps-testi h3{font-size:clamp(26px,2.6vw,38px);font-weight:800;letter-spacing:-.025em;line-height:1.1}
-.ps-testi p{margin-top:12px;font-size:clamp(17px,1.4vw,20px);color:var(--testo-2);max-width:620px}
-.ps-curva{position:relative;height:clamp(230px,36vh,360px)}
+.ps-testi p{margin-top:12px;font-size:clamp(17px,1.4vw,20px);color:var(--testo-2);max-width:720px}
+.ps-sotto{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px 28px;max-width:980px}
+.ps-sotto li{border-left:2px solid #E10AE9;padding:2px 0 2px 14px;font-size:15px;line-height:1.4;color:var(--testo-2)}
+.ps-sotto b{display:block;color:var(--testo);font-size:16px;margin-bottom:2px}
+.ps-curva{position:relative;height:clamp(110px,16vh,210px);margin-bottom:34px}
 .ps-fasce{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr)}
 .ps-fasce div{position:relative;border-left:1px solid var(--linea);padding:12px 16px;border-radius:18px 18px 0 0;transition:background .5s}
 .ps-fasce div b{font-family:'Bitcount Single','Aileron',sans-serif;font-weight:700;font-variation-settings:"CRSV" 0,"ELSH" 0;font-size:15px;color:var(--testo-3);transition:color .4s}
@@ -795,10 +802,10 @@ TITOLI = r"""
 /* senza blocco: telefono, movimento ridotto, modalità leggera */
 .passi-scorri.statico{height:auto}
 .statico .ps-pin{position:static;height:auto;padding:110px 0 90px;display:block}
-.statico .ps-alto{grid-template-columns:1fr;gap:30px}
+.statico .ps-alto{grid-template-columns:minmax(0,1fr);gap:30px}
 .statico .ps-tab,.statico .ps-curva{display:none}
 .statico .ps-testi{min-height:0;margin-top:0;display:grid;gap:0}
-.statico .ps-testi article{position:relative;opacity:1;transform:none;padding:22px 0 22px 30px;border-left:2px solid var(--linea);transition:border-color .6s}
+.statico .ps-testi article{grid-area:auto;position:relative;opacity:1;transform:none;padding:22px 0 22px 30px;border-left:2px solid var(--linea);transition:border-color .6s}
 .statico .ps-testi article::before{content:"";position:absolute;left:-8px;top:30px;width:14px;height:14px;border-radius:50%;background:var(--notte);border:2px solid var(--bordo);transition:all .5s}
 .statico .ps-testi article.acceso{border-left-color:#E10AE9}
 .statico .ps-testi article.acceso::before{background:var(--notte-2);border-color:#FF9E03;box-shadow:0 0 0 6px rgba(225,10,233,.2),0 0 22px 4px rgba(255,0,130,.45)}
@@ -1612,7 +1619,7 @@ NUOVA_SCENA = r"""// sequenza renderizzata in Blender, legata allo scorrimento
     return;
   }
   // curva che sale da sinistra a destra: stessi punti per la linea e per i pallini
-  const X = [.125, .375, .625, .875], y = x => 86 - 70 * Math.pow(x, 1.7);  // in percentuale dell'altezza
+  const X = Array.from({length: N}, (_, i) => (i + .5) / N), y = x => 86 - 70 * Math.pow(x, 1.7);  // in percentuale dell'altezza
   const d = Array.from({length: 61}, (_, i) => { const x = i / 60; return (i ? 'L' : 'M') + (x * 1000).toFixed(1) + ' ' + (y(x) * 3).toFixed(1); }).join(' ');
   const svg = sez.querySelector('.ps-curva svg');
   svg.querySelectorAll('path').forEach(pa => pa.setAttribute('d', d));
@@ -1930,7 +1937,7 @@ def nav(attiva):
 FOOTER = f'''<footer>
   <div class="wrap">
     <div class="eyebrow">Su Instagram vedi a cosa lavoriamo. Per tutto il resto, scrivici qui</div>
-    <a href="contatti.html" class="mega">Parliamone.</a>
+    <a href="contatti.html" class="mega mega-frase">Fin qui ti abbiamo raccontato noi. <span class="grad-t">Ora tocca a te.</span></a>
     <div class="foot">
       <div><img src="img/logo-topiko.png" alt="Topiko Lab">Agenzia di comunicazione per PMI</div>
       <nav>{"".join(f'<a href="{h}">{t}</a>' for h, t in VOCI)}<a href="https://www.instagram.com/topikolab/">Instagram</a><a href="https://www.linkedin.com/company/topikolab/">LinkedIn</a><a href="https://www.facebook.com/profile.php?id=61576566621857">Facebook</a></nav>
@@ -2022,8 +2029,8 @@ def pagina(nome, titolo, attiva, corpo, scena=False):
     corpo = re.sub(r"img/([\w-]+)\.jpg", lambda m: f"img/{m.group(1)}.webp" if (QUI / f"img/{m.group(1)}.webp").exists() else m.group(0), corpo)
     corpo = corpo.replace("Ho letto l'informativa privacy", 'Ho letto l\'<a href="privacy.html" target="_blank" style="text-decoration:underline">informativa privacy</a>')
     piede_pag = FOOTER
-    if nome == "contatti.html":  # nei Contatti il modulo è già lì: via l'invito "Parliamone." in fondo (26/11, Bryan)
-        piede_pag = re.sub(r'\s*<div class="eyebrow">Su Instagram.*?</div>\s*<a href="contatti.html" class="mega">Parliamone.</a>', '', FOOTER, count=1, flags=re.S)
+    if nome == "contatti.html":  # nei Contatti il modulo è già lì: via l'invito "Fin qui ti abbiamo raccontato noi. Ora tocca a te." in fondo (26/11, Bryan)
+        piede_pag = re.sub(r'\s*<div class="eyebrow">Su Instagram.*?</div>\s*<a href="contatti.html" class="mega[^"]*">.*?</a>', '', FOOTER, count=1, flags=re.S)
     html = testa + nav(attiva) + "\n" + con_sfumature(corpo + "\n" + piede_pag) + piede
     html = re.sub(r'((?:href|src)="(?:css|js)/[a-z]+\.(?:css|js))"', r'\1?v=' + VERSIONE + '"', html)
     (QUI / nome).write_text(html, encoding="utf-8")
@@ -2357,23 +2364,30 @@ pagina("index.html", "Topiko Lab", "index.html",
        "\n".join([scena, clienti, home_arco, home_casi_s, home_servizi_c, rec_s, home_analisi_c]), scena=True)  # clienti sotto l'apertura: provata sopra "Storie vere" il 26/11, Bryan l'ha rimessa qui
 
 # come lavoriamo: passi della pagina Servizi, con la curva che si accende scorrendo (js/passi.js)
-PASSI = [("Ti ascoltiamo", "Ci racconti la tua azienda e cosa vuoi ottenere. Prima di proporre qualcosa guardiamo sito, social e inserzioni di oggi."),
-         ("Scriviamo la linea", "Scriviamo a chi parlare e con quale voce. Lo leggi e lo correggi con noi."),
-         ("Produciamo", "Prepariamo contenuti, campagne e materiali."),
-         ("Il controllo mensile", "Guardiamo i numeri insieme. Teniamo quello che funziona e cambiamo il resto. E tranquillo: dopo la consegna non sparisce nessuno.")]
+# testi presi parola per parola dal Figma (26/11): titolo, descrizione e, dove c'è, i sotto-passi
+PASSI = [("Ti ascoltiamo", "Ci racconti la tua azienda e cosa vuoi ottenere. A che punto ti trovi e cosa ti circonda.", []),
+         ("Ci chiudiamo in Lab.", "Fabbrichiamo tante idee per proporti le migliori, unendo sistemi intelligenti e pensiero creativo.",
+          [("Analisi e strategia", ""), ("Brand Book", "Un documento per definire linee guida e dare una immagine coordinata una voce chiara serve."), ("Contenuti", "Shooting, video, tutto ciò che serve.")]),
+         ("Produciamo", "Prepariamo contenuti, campagne e materiali. Creiamo un ecosistema flessibile e funzionale a servizio degli obbiettivi aziendali.", []),
+         ("Pubblicazione", "Ogni brand ha una storia da raccontare, la faremo sapere a tutti.",
+          [("Ottimizzazione", "Osserviamo risultati e comportamenti, interveniamo su strumenti e messaggi, adeguiamo le strategie.")]),
+         ("Continuo confronto", "La continuità del confronto ci permette di accompagnare la crescita del brand.", [])]
+def _sotto(ss):
+    return f'<ul class="ps-sotto">{"".join(f"<li><b>{t}</b>{f'<span>{d}</span>' if d else ''}</li>" for t, d in ss)}</ul>' if ss else ""
 come_lavoriamo = f"""<section class="passi-scorri" id="come-lavoriamo">
   <div class="ps-pin">
     <div class="wrap ps-alto">
-      <div class="ps-sx"><div class="eyebrow">Come lavoriamo</div><h2>Ogni progetto è l'inizio di un percorso.<br><span class="grad-t">ti portiamo dove vuoi arrivare.</span></h2></div>
+      <div class="ps-sx"><div class="eyebrow">Come lavoriamo</div><h2>Ogni progetto è l'inizio di un percorso.<br><span class="grad-t">ti portiamo dove vuoi arrivare.</span> <span class="ps-razzo" aria-hidden="true">🚀</span></h2>
+        <p class="ps-lead">Osserviamo risultati e comportamenti, interveniamo su strumenti e messaggi, adeguiamo le strategie.</p></div>
       <div class="ps-dx">
-        <div class="ps-tab" role="tablist" aria-label="Passi">{"".join(f'<button type="button" role="tab" aria-selected="{str(i == 0).lower()}">{t}</button>' for i, (t, _) in enumerate(PASSI))}</div>
-        <div class="ps-testi">{"".join(f'<article{" class=on" if i == 0 else ""}><h3>{t}</h3><p>{d}</p></article>' for i, (t, d) in enumerate(PASSI))}</div>
+        <div class="ps-tab" role="tablist" aria-label="Passi">{"".join(f'<button type="button" role="tab" aria-selected="{str(i == 0).lower()}">{t}</button>' for i, (t, *_r) in enumerate(PASSI))}</div>
+        <div class="ps-testi">{"".join(f'<article{" class=on" if i == 0 else ""}><h3>{t}</h3><p>{d}</p>{_sotto(ss)}</article>' for i, (t, d, ss) in enumerate(PASSI))}</div>
       </div>
     </div>
     <div class="wrap"><div class="ps-curva" aria-hidden="true">
-      <div class="ps-fasce">{"".join(f'<div{" class=on" if i == 0 else ""}><b>0{i + 1}</b></div>' for i in range(len(PASSI)))}</div>
+      <div class="ps-fasce" style="grid-template-columns:repeat({len(PASSI)},1fr)">{"".join(f'<div{" class=on" if i == 0 else ""}><b>0{i + 1}</b></div>' for i in range(len(PASSI)))}</div>
       <svg viewBox="0 0 1000 300" preserveAspectRatio="none"><defs><linearGradient id="ps-grad" x1="0" x2="1"><stop offset="0" stop-color="#FF9E03"/><stop offset=".44" stop-color="#E10AE9"/><stop offset="1" stop-color="#FFE3F6"/></linearGradient><clipPath id="ps-taglio"><rect x="0" y="-20" width="0" height="340"/></clipPath></defs><path class="base"/><path stroke="url(#ps-grad)" clip-path="url(#ps-taglio)"/></svg>
-      {"".join(f'<i class="ps-punto"><span>{t}</span></i>' for t, _ in PASSI)}
+      {"".join(f'<i class="ps-punto"><span>{t}</span></i>' for t, *_r in PASSI)}
     </div></div>
   </div>
 </section>"""
@@ -2574,7 +2588,7 @@ contatti_corpo += f'''
       <label class="ck"><input type="checkbox" id="c-priv" required> <span>Ho letto l'informativa privacy (obbligatorio).</span></label>
       <button class="btn btn-g">Invia {FRECCIA}</button>
       <p class="modulo-errore" role="alert" style="color:#FFE3A3;font-size:14px;font-weight:600"></p>
-      <div class="grazie">Messaggio arrivato. Intanto puoi mettere su la moka.</div>
+      <div class="grazie">Messaggio arrivato. Intanto puoi mettere su la moka. Noi lo prendiamo ristretto, senza zucchero, presto.</div>
     </form>
     <div class="recapiti">
       <div class="rv"><small>Email</small><b><a href="mailto:info@topikolab.it">info@topikolab.it</a></b></div>

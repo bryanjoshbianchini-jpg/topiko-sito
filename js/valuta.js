@@ -92,6 +92,7 @@
       ${fotoSicura(d.foto) ? `<i class="foto-conferma" style="background-image:url('${esc(fotoSicura(d.foto))}')"></i>` : ''}
       <h3>Il report di @${esc(d.profilo)} è in cottura</h3>
       <p>Entro 24 ore te lo gusti nella tua mail: <b>${esc(dati.email)}</b>. Dentro trovi il voto e le prime cose da sistemare.</p>
+      <p>Faremo gli straordinari per risponderti in fretta.</p>
       <p class="nota-conferma">Se non la trovi, guarda anche nella posta indesiderata.</p>
       <a class="btn btn-g" href="casi-studio.html">Intanto guarda i casi studio</a>
     </div>`;
