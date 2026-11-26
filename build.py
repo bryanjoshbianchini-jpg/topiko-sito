@@ -1378,6 +1378,8 @@ body:has(.rot-lavori) .ph-hero::after{display:none}
 /* i numeri sotto la fila non si mostrano (26/11, Bryan); i bottoni restano per chi usa la tastiera */
 .rt-dots{display:none!important}
 .rot-sez{margin-bottom:-40px}
+/* fascia clienti in home tra l'arco e "Storie vere": poco spazio sopra (c'è già la sfumatura), niente doppio spazio sotto (26/11, Bryan) */
+body>section.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti:has(+ .rot-home){padding-top:32px!important;padding-bottom:40px!important}
 /* in home la fila sta sotto il titolo "Storie vere": stesso stacco tra titolo e contenuto delle altre sezioni */
 .rot-home .rt{margin-top:var(--home-rt,48px)}
 .rt-dots-vecchio{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
