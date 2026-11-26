@@ -1326,6 +1326,12 @@ body>section.casi-fila{padding-top:100px!important}
 """
 
 RUOTA_CSS = r"""
+/* I nostri lavori: lo stesso scuro viola dell'apertura su tutta la pagina (26/11, Bryan). Le due luci dell'apertura restano ferme mentre si scorre. */
+body:has(#rot)::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle 438px at 150px 190px,rgba(155,3,255,.45),rgba(155,3,255,.16) 40%,transparent 70%),
+             radial-gradient(circle 396px at calc(100% - 160px) 360px,rgba(255,0,130,.45),rgba(255,0,130,.16) 40%,transparent 70%)}
+body:has(#rot) .ph-hero .blob{display:none}
+body:has(#rot) .ph-hero::after{display:none}
 /* ===== I nostri lavori: fila dritta senza fine dei casi studio ===== */
 /* Prove A (fila dritta) e B (curva leggera): casi studio, solo anteprima */
 .rot-sez{position:relative;overflow:hidden}
