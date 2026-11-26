@@ -1421,19 +1421,19 @@ const vid = f => `<video muted loop playsinline preload="none" poster="${P}${f}.
 const img = (src, alt, cls = '', pos = 'center') => `<img ${cls ? `class="${cls}"` : ''} src="${src}" alt="${alt}" loading="lazy" decoding="async" draggable="false" style="object-position:${pos}">`;
 const CASI = [
  {url: S + 'caso-gapor.html', nome: 'Gapor', sett: 'scale su misura', pre: '', num: '123', lab: 'richieste di preventivo in cinque settimane', tit: 'Far vedere come nasce una scala a chi ristruttura casa', bg: I + 'gapor-grande.webp', pos: '60% 62%', v: 'gapor-g8', f: P + 'gapor-scala-luci.webp'},
- {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bg: I + 'insmile.webp', pos: '60% 28%', v: 'insmile-macchie', f: P + 'insmile-azzurro.webp'},
+ {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bgv: 'insmile-macchie', pos: 'center', vimg: I + 'insmile.webp', f: P + 'insmile-azzurro.webp'},
  {url: S + 'caso-koloro.html', nome: 'Koloro', sett: 'caffè bistrot a Parma', pre: 'oltre', num: '600.000', lab: 'visualizzazioni in 113 giorni', tit: 'Dalle locandine ai piatti: un profilo che si riconosce', bg: I + 'koloro.webp', pos: '60% 38%', v: 'koloro-panino', f: P + 'koloro-bowl.webp'}
 ];
 const COLL = ['koloro-bowl', 'gapor-scala-luci', 'insmile-azzurro', 'parmapast-aperitivo', 'farneto-gabian', 'koloro-cannoncini', 'gapor-chiocciola', 'parmapast-tortelli'];
 const N = 4;
 const card = k => {
- if (k < 3) { const c = CASI[k]; return `<a class="rc" href="${c.url}" aria-label="${c.nome}: ${c.num} ${c.lab}">${img(c.bg, c.nome, 'rc-bg', c.pos)}<span class="rc-vel"></span>
-  <span class="rc-ins v">${vid(c.v)}</span><span class="rc-ins f">${img(c.f, c.nome)}</span>
+ if (k < 3) { const c = CASI[k]; return `<a class="rc" href="${c.url}" aria-label="${c.nome}: ${c.num} ${c.lab}">${c.bgv ? vid(c.bgv).replace('<video ', `<video class="rc-bg" style="object-position:${c.pos}" `) : img(c.bg, c.nome, 'rc-bg', c.pos)}<span class="rc-vel"></span>
+  <span class="rc-ins v">${c.v ? vid(c.v) : img(c.vimg, c.nome)}</span><span class="rc-ins f">${img(c.f, c.nome)}</span>
   <span class="rc-top"><span class="rc-nome">${c.nome}</span><span class="rc-sett">${c.sett}</span></span>
   <span class="rc-testo">${c.pre ? `<span class="rc-pre">${c.pre}</span>` : ''}<span class="rt-num">${c.num}</span><span class="rc-lab">${c.lab}</span><span class="rc-tit">${c.tit}</span><span class="rc-ln">Leggi il caso ${ARR}</span></span><span class="rc-dim"></span></a>`; }
- return `<a class="rc rc-fine" href="${S}contatti.html" aria-label="Il prossimo potrebbe essere il tuo progetto. Scrivici">
+ return `<a class="rc rc-fine" href="${S}contatti.html" aria-label="Il prossimo caso studio potrebbe essere il tuo. Scrivici">
   <span class="rc-top"><span class="rc-sett">Il prossimo passo</span></span>
-  <span class="rc-testo"><h2>Il prossimo potrebbe essere <span class="grad-t">il tuo progetto</span></h2><span class="rc-ln">Scrivici ${ARR}</span></span>
+  <span class="rc-testo"><h2>Il prossimo caso studio potrebbe essere <span class="grad-t">il tuo.</span></h2></span>
   <span class="rc-gira" aria-hidden="true">${ARR}</span><span class="rc-dim"></span></a>`;
 };
 const rt = document.getElementById('rot'), stage = document.getElementById('rot-stage'), dots = document.getElementById('rot-dots');
