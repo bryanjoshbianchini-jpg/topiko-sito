@@ -1370,7 +1370,7 @@ body:has(#rot) .ph-hero::after{display:none}
 .rc-fine .vel2{position:absolute;inset:0;z-index:2;background:radial-gradient(75% 110% at 0% 50%,rgba(13,10,18,.9),rgba(13,10,18,.45) 62%,rgba(13,10,18,.05))}
 .rc-fine .rc-testo{width:68cqw;bottom:auto;top:50%;transform:translateY(-50%)}
 .rc-fine h2{font-size:6.9cqw;font-weight:800;letter-spacing:-.03em;line-height:.98em;margin-top:2.2cqw;text-shadow:0 2px 20px rgba(0,0,0,.5)}
-.rc-fine h2 .grad-t{margin-left:.1em;white-space:nowrap}
+.rc-fine h2 .grad-t{display:inline;white-space:normal}
 .rc-fine .rc-ln{margin-top:3cqw}
 .rc-gira{position:absolute;z-index:3;right:6cqw;bottom:6cqw;width:14cqw;height:14cqw;border-radius:50%;border:2px solid rgba(255,255,255,.8);display:grid;place-items:center;background:rgba(13,10,18,.35);transition:transform .5s var(--ease),background .4s}
 .rc-gira svg{width:46%;height:46%}
@@ -1421,7 +1421,7 @@ const vid = f => `<video muted loop playsinline preload="none" poster="${P}${f}.
 const img = (src, alt, cls = '', pos = 'center') => `<img ${cls ? `class="${cls}"` : ''} src="${src}" alt="${alt}" loading="lazy" decoding="async" draggable="false" style="object-position:${pos}">`;
 const CASI = [
  {url: S + 'caso-gapor.html', nome: 'Gapor', sett: 'scale su misura', pre: '', num: '123', lab: 'richieste di preventivo in cinque settimane', tit: 'Far vedere come nasce una scala a chi ristruttura casa', bg: I + 'gapor-grande.webp', pos: '60% 62%', v: 'gapor-g8', f: P + 'gapor-scala-luci.webp'},
- {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bgv: 'insmile-azzurro', pos: 'center', vimg: I + 'insmile.webp', f: I + 'arco/insmile-menta.jpg'},
+ {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bgv: 'insmile-macchie', pos: 'center', v: 'insmile-azzurro', f: I + 'insmile.webp'},
  {url: S + 'caso-koloro.html', nome: 'Koloro', sett: 'caffè bistrot a Parma', pre: 'oltre', num: '600.000', lab: 'visualizzazioni in 113 giorni', tit: 'Dalle locandine ai piatti: un profilo che si riconosce', bg: I + 'koloro.webp', pos: '60% 38%', v: 'koloro-panino', f: P + 'koloro-bowl.webp'}
 ];
 const COLL = ['koloro-bowl', 'gapor-scala-luci', 'insmile-azzurro', 'parmapast-aperitivo', 'farneto-gabian', 'koloro-cannoncini', 'gapor-chiocciola', 'parmapast-tortelli'];
@@ -1433,7 +1433,7 @@ const card = k => {
   <span class="rc-testo">${c.pre ? `<span class="rc-pre">${c.pre}</span>` : ''}<span class="rt-num">${c.num}</span><span class="rc-lab">${c.lab}</span><span class="rc-tit">${c.tit}</span><span class="rc-ln">Leggi il caso ${ARR}</span></span><span class="rc-dim"></span></a>`; }
  return `<a class="rc rc-fine" href="${S}contatti.html" aria-label="Il prossimo caso studio potrebbe essere il tuo. Scrivici">
   <span class="rc-top"><span class="rc-sett">Il prossimo passo</span></span>
-  <span class="rc-testo"><h2>Il prossimo caso studio potrebbe essere <span class="grad-t">il tuo.</span></h2></span>
+  <span class="rc-testo"><h2>Il prossimo caso studio <span class="grad-t">potrebbe essere il tuo.</span></h2></span>
   <span class="rc-gira" aria-hidden="true">${ARR}</span><span class="rc-dim"></span></a>`;
 };
 const rt = document.getElementById('rot'), stage = document.getElementById('rot-stage'), dots = document.getElementById('rot-dots');
