@@ -1,0 +1,19 @@
+# File rigenerati da build.py: non si modificano a mano e non si salvano
+/*.html
+!/archivio-pagina-unica.html
+/css/topiko.css
+/js/anello.js
+/js/arco.js
+/js/mondo.js
+/js/passi.js
+/js/pillole.js
+/js/portfolio.js
+/js/scena.js
+/js/topiko.js
+/js/vetro.js
+/pubblica/
+/dist/
+.vercel
+# file di sistema del Mac
+._*
+.DS_Store

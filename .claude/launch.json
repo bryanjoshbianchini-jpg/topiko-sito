@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {"name": "sito-topiko", "runtimeExecutable": "python3", "runtimeArgs": ["-m", "http.server", "3114"], "port": 3114}
+  ]
+}
