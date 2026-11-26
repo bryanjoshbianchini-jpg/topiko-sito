@@ -1325,7 +1325,176 @@ body>section.casi-fila{padding-top:100px!important}
 @media (prefers-reduced-motion:reduce){.fp-track,.fp-p,.fp-cap{transition:none}}
 """
 
-(QUI / "css/topiko.css").write_text(FONT + css.strip() + "\n" + EXTRA + TITOLI + ARCO_CSS + PILLOLE_CSS + TEMA_CSS + SPAZI_CSS + FONT_UGUALI + CASI_CSS, encoding="utf-8")
+RUOTA_CSS = r"""
+/* ===== I nostri lavori: fila dritta senza fine dei casi studio ===== */
+/* Prove A (fila dritta) e B (curva leggera): casi studio, solo anteprima */
+.rot-sez{position:relative;overflow:hidden}
+.rot-sez::before{content:"";position:absolute;width:1100px;height:1100px;left:50%;top:120px;margin-left:-550px;background:radial-gradient(closest-side,rgba(155,3,255,.26),rgba(255,0,130,.08) 60%,transparent);pointer-events:none}
+.rt{--w:1000px;--h:520px;position:relative;margin-top:0;height:calc(var(--h) + 50px);touch-action:pan-y;user-select:none;-webkit-user-select:none;outline:none}
+.rt:focus-visible{outline:2px solid rgba(255,255,255,.5);outline-offset:6px}
+.rt-stage{position:absolute;inset:0}
+.rc{position:absolute;left:50%;top:10px;width:var(--w);height:var(--h);margin-left:calc(var(--w) / -2);overflow:hidden;border-radius:3px;container-type:inline-size;display:block;color:#F4F1F8;text-decoration:none;background:#16121d;box-shadow:0 45px 80px -38px rgba(0,0,0,.85),0 12px 28px -12px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.1)}
+.rc::after{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(155,3,255,.5) 32%,rgba(255,0,130,.3) 66%,rgba(255,255,255,.12));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:6}
+.rc-dim{position:absolute;inset:0;z-index:7;background:#0b0810;opacity:var(--dim,0);pointer-events:none}
+.rc-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rc-vel{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(13,10,18,.8) 0%,rgba(13,10,18,.62) 24%,rgba(13,10,18,.24) 42%,rgba(13,10,18,0) 58%),radial-gradient(55% 80% at 0% 100%,rgba(155,3,255,.32),transparent 70%)}
+.rc-top{position:absolute;z-index:3;left:4.6cqw;right:4.6cqw;top:4.2cqw;display:flex;align-items:baseline;gap:1.8cqw;flex-wrap:wrap}
+.rc-nome{font-weight:800;font-size:max(20px,3.1cqw);letter-spacing:-.03em;line-height:1;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.rc-sett{font-family:'Bitcount Single','Aileron',sans-serif;font-variation-settings:"CRSV" 0,"ELSH" 0;font-size:max(11px,1.35cqw);letter-spacing:.1em;text-transform:uppercase;color:#E6E0EE;display:flex;align-items:center;gap:10px;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.rc-sett::before{content:"";width:24px;height:2px;background:var(--grad);flex:none}
+.rc-testo{position:absolute;z-index:3;left:4.6cqw;bottom:4.4cqw;width:52cqw}
+.rc-pre{display:block;font-size:2.5cqw;font-weight:700;line-height:1;margin-bottom:.4cqw;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.rt-num{display:block;font-size:11.6cqw;font-weight:800;letter-spacing:-.045em;line-height:.86;white-space:nowrap;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding:.04em .1em .12em 0;filter:drop-shadow(0 4px 22px rgba(13,10,18,.45))}
+.rc-lab{display:block;font-size:max(15px,1.95cqw);margin-top:1.1cqw;line-height:1.25;font-weight:700;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.rc-tit{display:block;font-size:max(13px,1.55cqw);margin-top:.9cqw;line-height:1.4;color:#E4DEEC;max-width:44cqw;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.rc-ln{display:inline-flex;align-items:center;gap:12px;margin-top:2.2cqw;font-weight:700;font-size:max(14px,1.6cqw);color:#fff;padding:1.1cqw 2.2cqw;border-radius:100px;background:var(--grad);box-shadow:0 10px 36px -10px rgba(255,0,130,.8)}
+.rc-ln svg{width:1.1em;height:1.1em;transition:transform .35s var(--ease)}
+.rc:hover .rc-ln svg{transform:translateX(5px)}
+.rc-ins{position:absolute;z-index:3;overflow:hidden;background:#211B2A;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.3)}
+.rc-ins img,.rc-ins video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+.rc-ins.v{right:7.5cqw;top:14cqw;width:21cqw;aspect-ratio:9/16;transform:rotate(3deg)}
+.rc-ins.f{right:25cqw;bottom:6.5cqw;width:13.5cqw;aspect-ratio:1;transform:rotate(-5deg)}
+/* quarta card: mosaico nitido dei lavori, gradiente Topiko che si muove */
+.rc-fine .coll{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr)}
+.rc-fine .coll img{width:100%;height:100%;object-fit:cover}
+.rc-fine .anim{position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,rgba(155,3,255,.8),rgba(255,0,130,.62),rgba(255,122,47,.55),rgba(155,3,255,.8));background-size:300% 100%;animation:rcMove 9s linear infinite;mix-blend-mode:multiply;opacity:.85}
+@keyframes rcMove{to{background-position:-300% 0}}
+.rc-fine .vel2{position:absolute;inset:0;z-index:2;background:radial-gradient(75% 110% at 0% 50%,rgba(13,10,18,.9),rgba(13,10,18,.45) 62%,rgba(13,10,18,.05))}
+.rc-fine .rc-testo{width:68cqw;bottom:auto;top:50%;transform:translateY(-50%)}
+.rc-fine h2{font-size:6.9cqw;font-weight:800;letter-spacing:-.03em;line-height:.98em;margin-top:2.2cqw;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.rc-fine h2 .grad-t{margin-left:.1em;white-space:nowrap}
+.rc-fine .rc-ln{margin-top:3cqw}
+.rc-gira{position:absolute;z-index:3;right:6cqw;bottom:6cqw;width:14cqw;height:14cqw;border-radius:50%;border:2px solid rgba(255,255,255,.8);display:grid;place-items:center;background:rgba(13,10,18,.35);transition:transform .5s var(--ease),background .4s}
+.rc-gira svg{width:46%;height:46%}
+.rc-fine:hover .rc-gira{background:var(--grad);border-color:transparent;transform:rotate(-45deg)}
+.rt-dots{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
+.rt-dots button{height:34px;min-width:34px;padding:0 12px;border-radius:100px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#B9B2C4;font:700 13px/1 'Aileron';letter-spacing:.04em;transition:background .3s,color .3s,border-color .3s,min-width .4s var(--ease)}
+.rt-dots button[aria-current=true]{background:var(--grad);border-color:transparent;color:#fff;min-width:78px}
+.rt-dots button[aria-current=true]::after{content:" / 04";opacity:.8}
+@media (max-width:860px){
+ .rt{--w:min(78vw,360px);--h:500px;margin-top:0}
+ .rc-vel{background:linear-gradient(180deg,rgba(13,10,18,.55) 0%,rgba(13,10,18,0) 24%),linear-gradient(0deg,rgba(13,10,18,.92) 0%,rgba(13,10,18,.78) 36%,rgba(13,10,18,.12) 68%,rgba(13,10,18,0) 100%),radial-gradient(70% 50% at 0% 100%,rgba(155,3,255,.3),transparent 70%)}
+ .rc-top{left:6cqw;right:6cqw;top:6cqw;gap:1.5cqw 3cqw}
+ .rc-nome{font-size:8cqw}.rc-sett{font-size:11px}
+ .rc-testo{left:6cqw;right:6cqw;bottom:6cqw;width:auto}
+ .rc-pre{font-size:5.6cqw}.rt-num{font-size:21cqw}
+ .rc-lab{font-size:4.8cqw;margin-top:2cqw}.rc-tit{font-size:3.9cqw;max-width:none;margin-top:1.6cqw}
+ .rc-ln{margin-top:4cqw;font-size:4cqw;padding:3cqw 6cqw}
+ .rc-ins.v{right:6cqw;top:23cqw;width:30cqw}
+ .rc-ins.f{right:auto;left:6cqw;top:26cqw;bottom:auto;width:21cqw}
+ .rc-fine .rc-testo{width:auto;top:46%}
+ .rc-fine h2{font-size:12.4cqw}.rc-fine .rc-ln{margin-top:7cqw}
+ .rc-fine .coll{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,1fr)}
+ .rc-gira{width:22cqw;height:22cqw;right:7cqw;bottom:7cqw}
+}
+@media (prefers-reduced-motion:reduce){.rc-fine .anim{animation:none}.rc-ln svg,.rc-gira{transition:none}}
+/* frecce (solo computer): cerchio sottile, al passaggio si riempie un poco */
+.rt-fr{position:absolute;top:calc(10px + var(--h) / 2 - 28px);z-index:300;width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(13,10,18,.35);color:#fff;display:grid;place-items:center;transition:background .3s,border-color .3s}
+.rt-fr:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.85)}
+.rt-fr:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.rt-fr svg{width:22px;height:22px}
+.rt-prev{left:28px}.rt-next{right:28px}
+@media (max-width:860px){.rt-fr{display:none}}
+/* spazio tra la fila e il Portfolio: 120px a schermo (72 su telefono), come --sez in SPAZI_CSS; 45px sono già dentro il Portfolio (ripetizioni della classe per battere le regole generali) */
+body>section.rot-sez.rot-sez.rot-sez.rot-sez.rot-sez.rot-sez.rot-sez{padding-bottom:75px!important}
+@media (max-width:760px){body>section.rot-sez.rot-sez.rot-sez.rot-sez.rot-sez.rot-sez.rot-sez{padding-bottom:27px!important}}
+/* la freccia tonda della quarta card si vede solo quando la card è davanti: nelle laterali sfuma */
+.rc-gira{opacity:calc(1 - var(--dim,0) * 3.4)}
+"""
+(QUI / "js/ruota.js").write_text(r"""// Casi studio (pagina I nostri lavori): fila dritta senza fine. Frecce (computer), tastiera, puntini e swipe (telefono). Video muti, gira solo quello della card davanti; si fermano solo con movimento ridotto.
+(() => {
+const I = 'img/', P = I + 'portfolio/', S = '';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const vid = f => `<video muted loop playsinline preload="none" poster="${P}${f}.webp" aria-hidden="true"><source src="${P}${f}.webm" type="video/webm"><source src="${P}${f}.mp4" type="video/mp4"></video>`;
+const img = (src, alt, cls = '', pos = 'center') => `<img ${cls ? `class="${cls}"` : ''} src="${src}" alt="${alt}" loading="lazy" decoding="async" draggable="false" style="object-position:${pos}">`;
+const CASI = [
+ {url: S + 'caso-gapor.html', nome: 'Gapor', sett: 'scale su misura', pre: '', num: '123', lab: 'richieste di preventivo in cinque settimane', tit: 'Far vedere come nasce una scala a chi ristruttura casa', bg: I + 'gapor-grande.webp', pos: '60% 62%', v: 'gapor-g8', f: P + 'gapor-scala-luci.webp'},
+ {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bg: I + 'insmile.webp', pos: '60% 28%', v: 'insmile-macchie', f: P + 'insmile-azzurro.webp'},
+ {url: S + 'caso-koloro.html', nome: 'Koloro', sett: 'caffè bistrot a Parma', pre: 'oltre', num: '600.000', lab: 'visualizzazioni in 113 giorni', tit: 'Dalle locandine ai piatti: un profilo che si riconosce', bg: I + 'koloro.webp', pos: '60% 38%', v: 'koloro-panino', f: P + 'koloro-bowl.webp'}
+];
+const COLL = ['koloro-bowl', 'gapor-scala-luci', 'insmile-azzurro', 'parmapast-aperitivo', 'farneto-gabian', 'koloro-cannoncini', 'gapor-chiocciola', 'parmapast-tortelli'];
+const N = 4;
+const card = k => {
+ if (k < 3) { const c = CASI[k]; return `<a class="rc" href="${c.url}" aria-label="${c.nome}: ${c.num} ${c.lab}">${img(c.bg, c.nome, 'rc-bg', c.pos)}<span class="rc-vel"></span>
+  <span class="rc-ins v">${vid(c.v)}</span><span class="rc-ins f">${img(c.f, c.nome)}</span>
+  <span class="rc-top"><span class="rc-nome">${c.nome}</span><span class="rc-sett">${c.sett}</span></span>
+  <span class="rc-testo">${c.pre ? `<span class="rc-pre">${c.pre}</span>` : ''}<span class="rt-num">${c.num}</span><span class="rc-lab">${c.lab}</span><span class="rc-tit">${c.tit}</span><span class="rc-ln">Leggi il caso ${ARR}</span></span><span class="rc-dim"></span></a>`; }
+ return `<a class="rc rc-fine" href="${S}contatti.html" aria-label="Il prossimo potrebbe essere il tuo progetto. Scrivici"><span class="coll">${COLL.map(f => `<img src="${P}${f}.webp" alt="" loading="lazy" decoding="async" draggable="false">`).join('')}</span><span class="anim"></span><span class="vel2"></span>
+  <span class="rc-top"><span class="rc-sett">Il prossimo passo</span></span>
+  <span class="rc-testo"><h2>Il prossimo potrebbe essere <span class="grad-t">il tuo progetto</span></h2><span class="rc-ln">Scrivici ${ARR}</span></span>
+  <span class="rc-gira" aria-hidden="true">${ARR}</span><span class="rc-dim"></span></a>`;
+};
+const rt = document.getElementById('rot'), stage = document.getElementById('rot-stage'), dots = document.getElementById('rot-dots');
+stage.innerHTML = Array.from({length: N}, (_, k) => card(k)).join('');
+dots.innerHTML = Array.from({length: N}, (_, i) => `<button type="button" aria-label="Vai alla card ${i + 1} di ${N}">${String(i + 1).padStart(2, '0')}</button>`).join('');
+const cards = [...stage.children], vids = cards.map(c => [...c.querySelectorAll('video')]), db = [...dots.children];
+const mod = (a, n) => ((a % n) + n) % n, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+let pos = 0, target = 0, drag = null, moved = false;
+const W = () => cards[0].offsetWidth;
+const dist = k => mod(k - pos + N / 2, N) - N / 2;   // -2 .. +2, la fila gira sempre nello stesso senso
+function draw() {
+ const w = W(), gap = innerWidth < 861 ? 6 : 24, S = (innerWidth < 861 ? .9 : .93) * w + gap;
+ cards.forEach((c, k) => {
+  const d = dist(k), ad = Math.abs(d), sg = Math.sign(d) || 1, near = Math.min(ad, 1);
+  let t;
+  if (reduce) { t = `translate3d(${d * (w + gap)}px,0,0)`; c.firstElementChild; c.style.setProperty('--dim', (.3 * near).toFixed(3)); }
+  else {
+   const x = sg * (ad <= 1 ? ad * S : S + (ad - 1) * (.85 * w + gap)), s = 1 - .15 * near;
+   t = `translate3d(${x.toFixed(1)}px,0,0) scale(${s.toFixed(4)})`; c.style.setProperty('--dim', (.3 * near).toFixed(3));
+  }
+  c.style.transform = t; c.style.zIndex = 100 - Math.round(ad * 10);
+  c.style.pointerEvents = ad < 1.5 ? 'auto' : 'none';
+ });
+}
+function stato() {
+ const cur = mod(Math.round(pos), N);
+ db.forEach((b, i) => b.setAttribute('aria-current', i === cur));
+ cards.forEach((c, k) => { c.tabIndex = k === cur ? 0 : -1; c.setAttribute('aria-hidden', k === cur ? 'false' : 'true'); });
+ vids.forEach((vs, k) => vs.forEach(v => { const on = !reduce && !drag && k === cur && !document.hidden; if (on) { if (v.paused) { v.preload = 'auto'; v.play().catch(() => {}); } } else if (!v.paused) v.pause(); }));
+}
+// l'aggancio: la fila scorre morbida fino alla card scelta (frecce, tastiera, puntini, swipe)
+let run = false, lastT = 0, shown = -1;
+function frame(t) {
+ const dt = Math.min(.05, (t - lastT) / 1000 || .016); lastT = t;
+ pos += (target - pos) * (1 - Math.exp(-dt * 6));
+ if (Math.abs(target - pos) < .001) { pos = target; run = false; draw(); stato(); return; }
+ draw(); const c = Math.round(pos); if (c !== shown) { shown = c; stato(); }
+ requestAnimationFrame(frame);
+}
+const parti = () => { if (!run) { run = true; lastT = performance.now(); requestAnimationFrame(frame); } };
+function anima() { if (reduce) { pos = target; draw(); stato(); return; } stato(); parti(); }
+const passo = n => { target = Math.round(target) + n; anima(); };
+function vai(i) { const base = Math.round(pos), cur = mod(base, N); target = base + (mod(i - cur + 2, N) - 2); anima(); }
+db.forEach((b, i) => b.onclick = () => vai(i));
+rt.querySelector('.rt-prev').onclick = () => passo(-1); rt.querySelector('.rt-next').onclick = () => passo(1);
+addEventListener('keydown', e => { if (e.key === 'ArrowLeft') passo(-1); if (e.key === 'ArrowRight') passo(1); });
+document.addEventListener('visibilitychange', stato);
+// dito (o mouse se il movimento è ridotto): la fila segue, poi si aggancia
+rt.addEventListener('pointerdown', e => { if (e.button > 0 || (e.pointerType === 'mouse' && !reduce)) return; run = false; drag = {x: e.clientX, y: e.clientY, p: pos, lx: e.clientX, lt: performance.now(), v: 0, on: false}; moved = false; });
+addEventListener('pointermove', e => {
+ if (!drag) return;
+ const dx = e.clientX - drag.x;
+ if (!drag.on && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - drag.y)) { drag.on = true; rt.classList.add('trascina'); try { rt.setPointerCapture(e.pointerId); } catch (_) {} stato(); }
+ if (!drag.on) return;
+ moved = true; const sp = W() * .7, t = performance.now();
+ drag.v = (e.clientX - drag.lx) / Math.max(1, t - drag.lt); drag.lx = e.clientX; drag.lt = t;
+ pos = drag.p - dx / sp; draw();
+});
+const fine = () => {
+ if (!drag) return; const d = drag; drag = null; rt.classList.remove('trascina');
+ if (d.on) { const sp = W() * .7; let t = Math.round(pos - d.v * 240 / sp); if (t === Math.round(d.p) && Math.abs(pos - d.p) > .18) t = Math.round(d.p) + Math.sign(pos - d.p); target = t; anima(); }
+};
+addEventListener('pointerup', fine); addEventListener('pointercancel', fine);
+rt.addEventListener('click', e => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+cards.forEach((c, k) => c.addEventListener('click', e => { const d = Math.round(dist(k)); if (d !== 0 && !e.defaultPrevented) { e.preventDefault(); passo(d); } }));
+cards.forEach(c => c.addEventListener('dragstart', e => e.preventDefault()));
+addEventListener('resize', draw);
+draw(); stato();
+})();
+""", encoding="utf-8")
+
+(QUI / "css/topiko.css").write_text(FONT + css.strip() + "\n" + EXTRA + TITOLI + ARCO_CSS + PILLOLE_CSS + TEMA_CSS + SPAZI_CSS + FONT_UGUALI + CASI_CSS + RUOTA_CSS, encoding="utf-8")
 
 # ---------- script ----------
 script_vetro = re.search(r'<svg id="lenti".*?</svg>\n<script>(.*?)</script>', SRC, re.S).group(1)
@@ -1819,7 +1988,7 @@ def pagina(nome, titolo, attiva, corpo, scena=False):
 <script src="js/topiko.js"></script>
 {'<script src="js/scena.js"></script>' if scena else ''}
 <script src="js/leggero.js"></script>
-{'<script src="js/servizi.js"></script>' if 'servizi-g' in corpo else ''}{'<script src="js/anello.js"></script>' if 'ta-anello' in corpo else ''}{'<script src="js/arco.js"></script>' if 'id="arco"' in corpo else ''}{'<script src="js/mondo.js"></script>' if 'data-mondo' in corpo else ''}{'<script src="js/portfolio.js"></script>' if 'id="portfolio"' in corpo else ''}{'<script src="vendor/matter.min.js"></script><script src="js/pillole.js"></script>' if 'id="pil"' in corpo else ''}{'<script src="js/passi.js"></script>' if 'id="come-lavoriamo"' in corpo else ''}
+{'<script src="js/servizi.js"></script>' if 'servizi-g' in corpo else ''}{'<script src="js/anello.js"></script>' if 'ta-anello' in corpo else ''}{'<script src="js/arco.js"></script>' if 'id="arco"' in corpo else ''}{'<script src="js/mondo.js"></script>' if 'data-mondo' in corpo else ''}{'<script src="js/portfolio.js"></script>' if 'id="portfolio"' in corpo else ''}{'<script src="js/ruota.js"></script>' if 'id="rot"' in corpo else ''}{'<script src="vendor/matter.min.js"></script><script src="js/pillole.js"></script>' if 'id="pil"' in corpo else ''}{'<script src="js/passi.js"></script>' if 'id="come-lavoriamo"' in corpo else ''}
 {'<script src="js/entra.js"></script>' if 'data-entra' in corpo else ''}
 {'<script src="js/recensioni.js"></script>' if 'recensioni-google' in corpo else ''}
 {'<script src="js/valuta.js"></script>' if 'id="valuta"' in corpo else ''}
@@ -2219,7 +2388,7 @@ def carta_pf(f, cliente, tipo, fmt, video):
         media = f'<img src="img/portfolio/{f}.webp" alt="{et}" loading="lazy" decoding="async">'
     return (f'<figure class="pf-c pf-{fmt} rv"><button type="button" class="pf-apri" aria-label="Apri {et} a schermo grande">{media}</button>'
             f'<figcaption class="pf-et">{et}</figcaption></figure>')
-PORTFOLIO = f"""<section class="sezione portfolio chiara" id="portfolio">
+PORTFOLIO = f"""<section class="sezione portfolio" id="portfolio">
   <div class="wrap">
     <div class="eyebrow rv">Portfolio</div>
     <h2 class="big rv">I contenuti<br><span class="grad-t">che abbiamo creato</span></h2>
@@ -2230,10 +2399,12 @@ PORTFOLIO = f"""<section class="sezione portfolio chiara" id="portfolio">
 casi_corpo = ph_hero("Casi studio", "Cosa è cambiato", "per chi lavora con noi",
                      "Dietro le quinte dei nostri lavori: il problema da cui siamo partiti, cosa abbiamo fatto e cosa è cambiato. I numeri vengono dagli account dei clienti.")
 casi_corpo += f'''
-<section class="casi-elenco">
-  <div class="wrap casi-pagina">
-    {schede_lavori}
+<section class="rot-sez" aria-label="Casi studio">
+  <div class="rt" id="rot" tabindex="0" role="region" aria-roledescription="carosello" aria-label="Casi studio"><div class="rt-stage" id="rot-stage"></div>
+    <button class="rt-fr rt-prev" type="button" aria-label="Caso precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="rt-fr rt-next" type="button" aria-label="Caso successivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
+  <div class="rt-dots" id="rot-dots" role="group" aria-label="Scegli il caso"></div>
 </section>
 {PORTFOLIO}
 {CTA_FINE}'''
