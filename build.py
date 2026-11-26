@@ -834,7 +834,8 @@ section.ar-sez{padding-top:0!important;padding-bottom:0!important}
 .ar-f::before{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;padding:2px;background:linear-gradient(100deg,#9B03FF,#FF0082 50%,#FF7A2F);pointer-events:none;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
 .ar-arco:has(.ar-c:hover) .ar-c:not(:hover),.ar-arco:has(.ar-c.su) .ar-c:not(.su){opacity:.6}
-.ar-c:is(:hover,.su){z-index:40!important;transform:translate(-50%,-50%) rotate(calc(var(--a) * .5)) translateY(calc(var(--R) * -1 - 26px)) scale(1.1)}
+/* la card sotto il mouse fa solo un passo avanti dove si trova: stessa inclinazione, nessuno spostamento verso il centro (26/11, Bryan) */
+.ar-c:is(:hover,.su){z-index:40!important;transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--R) * -1)) scale(1.1)}
 .ar-c:is(:hover,.su) .ar-f{box-shadow:0 40px 70px -24px rgba(60,20,110,.65),0 12px 24px -10px rgba(60,20,110,.4)}
 .ar-c:is(:hover,.su) .ar-f::before{opacity:1}
 @media (hover:none){.ar-c:hover{transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--R)*-1))}.ar-arco:has(.ar-c:hover) .ar-c:not(:hover){opacity:1}}
