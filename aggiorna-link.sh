@@ -1,7 +1,7 @@
 #!/bin/bash
 # Mette online le modifiche sulla bozza del sito: https://topiko-sito-bozza.vercel.app (il link resta sempre lo stesso).
 # Uso: bash aggiorna-link.sh "cosa hai cambiato"
-#  1. salva le tue modifiche su GitHub e prende quelle degli altri (Bryan, Davide, Chiara)
+#  1. salva le tue modifiche su GitHub e prende quelle degli altri (Bryan, Davide)
 #  2. rigenera il sito con build.py, per fermarsi subito se c'è un errore
 #  3. Vercel vede la modifica su GitHub e aggiorna la bozza da solo in 1-2 minuti
 # Con --prova prepara solo la cartella della bozza, senza salvare (lo usa Vercel per costruire il sito).
@@ -9,7 +9,7 @@ set -e
 SITO="$(cd "$(dirname "$0")" && pwd)"
 BOZZA="${BOZZA:-$HOME/Developer/topiko-sito-bozza}"
 
-# git: una copia normale (Davide, Chiara) oppure, sul Mac di Bryan, l'archivio tenuto fuori dal vault
+# git: una copia normale (Davide) oppure, sul Mac di Bryan, l'archivio tenuto fuori dal vault
 if [ -d "$SITO/.git" ]; then G() { git -C "$SITO" "$@"; }
 elif [ -d "$HOME/Developer/topiko-sito.git" ]; then G() { git --git-dir="$HOME/Developer/topiko-sito.git" --work-tree="$SITO" "$@"; }
 else G() { return 1; }; fi

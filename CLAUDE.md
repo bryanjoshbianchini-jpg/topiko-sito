@@ -1,6 +1,6 @@
 # Sito di Topiko Lab: regole per chi ci lavora
 
-Ci lavorano Bryan, Davide e Chiara, ognuno con il suo Claude Code. Queste regole valgono per tutti.
+Ci lavorano Bryan e Davide, ognuno con il suo Claude Code. Queste regole valgono per tutti.
 
 ## Come si lavora
 
