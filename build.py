@@ -815,12 +815,14 @@ section.ar-sez{padding-top:0!important;padding-bottom:0!important}
 .ar-azioni{display:flex;flex-wrap:wrap;align-items:center;gap:16px 30px;margin-top:34px}
 .ar-azioni .link-tutti{margin-top:0;color:var(--testo);border-bottom:2px solid currentColor;padding-bottom:3px}
 /* ogni card sta sul raggio di un cerchio che ha il centro sotto la sezione */
-.ar-arco{--w:16.5cqw;--R:90cqw;--cy:104.8cqw;--step:10deg;list-style:none;position:absolute;inset:0;margin:0;padding:0}
+.ar-arco{--w:16.5cqw;--R:90cqw;--cy:104.8cqw;--step:11.5deg;list-style:none;position:absolute;inset:0;margin:0;padding:0}
 .ar-c{position:absolute;left:50%;top:var(--cy);width:var(--w);aspect-ratio:4/5;
   --a:calc((var(--i) - 3)*var(--step));--h:0px;z-index:calc(var(--i) + 1);
   transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--R)*-1 + var(--h)));
   transition:transform .45s cubic-bezier(.16,1,.3,1)}
 .ar-c:nth-child(4){z-index:20}
+/* 5 card, ben distanziate e tutte dentro lo schermo: la prima e l'ultima delle 7 si nascondono (26/11, Bryan) */
+.ar-c:is(:nth-child(1),:nth-child(7)){display:none}
 .ar-f{display:block;cursor:pointer;position:absolute;inset:0;border-radius:14px;overflow:hidden;background:#d8d0f6;
   box-shadow:0 24px 40px -22px rgba(60,20,110,.45),0 6px 14px -6px rgba(60,20,110,.25)}
 .ar-f img,.ar-f video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -835,16 +837,16 @@ section.ar-sez{padding-top:0!important;padding-bottom:0!important}
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
 .ar-arco:has(.ar-c:hover) .ar-c:not(:hover),.ar-arco:has(.ar-c.su) .ar-c:not(.su){opacity:.6}
 /* la card sotto il mouse fa solo un passo avanti dove si trova: stessa inclinazione, nessuno spostamento verso il centro (26/11, Bryan) */
-.ar-c:is(:hover,.su){z-index:40!important;transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--R) * -1)) scale(1.1)}
+.ar-c:is(:hover,.su){z-index:40!important;transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--R) * -1)) scale(1.2)}
 .ar-c:is(:hover,.su) .ar-f{box-shadow:0 40px 70px -24px rgba(60,20,110,.65),0 12px 24px -10px rgba(60,20,110,.4)}
 .ar-c:is(:hover,.su) .ar-f::before{opacity:1}
 @media (hover:none){.ar-c:hover{transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--R)*-1))}.ar-arco:has(.ar-c:hover) .ar-c:not(:hover){opacity:1}}
 /* telefono: arco stretto con 5 card (le altre si nascondono) */
 @media (max-width:700px){
-  .ar-palco{height:55cqw}
+  .ar-palco{height:48cqw}
   .ar-dopo{padding:16px 20px 56px}
   .ar-azioni .btn{width:100%;justify-content:center}
-  .ar-arco{--w:20.4cqw;--R:126cqw;--cy:148.75cqw;--step:7.5deg}
+  .ar-arco{--w:15cqw;--R:100cqw;--cy:119.4cqw;--step:10.5deg}
   .ar-l{left:5px;top:5px;font-size:8px;padding:2px 5px;border-radius:5px}
   .ar-f{border-radius:9px}
 }
