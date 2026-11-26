@@ -1381,6 +1381,9 @@ body:has(.rot-lavori) .ph-hero::after{display:none}
 /* home: i loghi dei clienti vicini all'arco di card (26/11, Bryan) */
 body>section.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti.clienti:has(+ .sfuma + .ar-sez){padding-bottom:24px!important}
 .sfuma:has(+ .ar-sez){height:120px!important}
+/* home: più aria tra la fila dei casi e "Cosa facciamo" (26/11, Bryan): da 120 a circa 200 px */
+body>section.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home{padding-bottom:155px!important}
+@media (max-width:760px){body>section.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home.rot-home{padding-bottom:65px!important}}
 /* in home la fila sta sotto il titolo "Storie vere": stesso stacco tra titolo e contenuto delle altre sezioni */
 .rot-home .rt{margin-top:var(--home-rt,48px)}
 .rt-dots-vecchio{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
