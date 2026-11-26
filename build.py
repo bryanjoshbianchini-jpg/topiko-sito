@@ -1421,7 +1421,7 @@ const vid = f => `<video muted loop playsinline preload="none" poster="${P}${f}.
 const img = (src, alt, cls = '', pos = 'center') => `<img ${cls ? `class="${cls}"` : ''} src="${src}" alt="${alt}" loading="lazy" decoding="async" draggable="false" style="object-position:${pos}">`;
 const CASI = [
  {url: S + 'caso-gapor.html', nome: 'Gapor', sett: 'scale su misura', pre: '', num: '123', lab: 'richieste di preventivo in cinque settimane', tit: 'Far vedere come nasce una scala a chi ristruttura casa', bg: I + 'gapor-grande.webp', pos: '60% 62%', v: 'gapor-g8', f: P + 'gapor-scala-luci.webp'},
- {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bgv: 'insmile-macchie', pos: 'center', vimg: I + 'insmile.webp', f: P + 'insmile-azzurro.webp'},
+ {url: S + 'caso-insmile.html', nome: 'Insmile', sett: 'sbiancamento dentale', pre: '', num: '3 → 33', lab: 'ordini nel primo mese di campagne', tit: 'Brand book, contenuti e campagne per un negozio online', bgv: 'insmile-azzurro', pos: 'center', vimg: I + 'insmile.webp', f: I + 'arco/insmile-menta.jpg'},
  {url: S + 'caso-koloro.html', nome: 'Koloro', sett: 'caffè bistrot a Parma', pre: 'oltre', num: '600.000', lab: 'visualizzazioni in 113 giorni', tit: 'Dalle locandine ai piatti: un profilo che si riconosce', bg: I + 'koloro.webp', pos: '60% 38%', v: 'koloro-panino', f: P + 'koloro-bowl.webp'}
 ];
 const COLL = ['koloro-bowl', 'gapor-scala-luci', 'insmile-azzurro', 'parmapast-aperitivo', 'farneto-gabian', 'koloro-cannoncini', 'gapor-chiocciola', 'parmapast-tortelli'];
