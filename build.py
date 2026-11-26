@@ -1327,11 +1327,11 @@ body>section.casi-fila{padding-top:100px!important}
 
 RUOTA_CSS = r"""
 /* I nostri lavori: lo stesso scuro viola dell'apertura su tutta la pagina (26/11, Bryan). Le due luci dell'apertura restano ferme mentre si scorre. */
-body:has(#rot)::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+body:has(.rot-lavori)::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(circle 438px at 150px 190px,rgba(155,3,255,.45),rgba(155,3,255,.16) 40%,transparent 70%),
              radial-gradient(circle 396px at calc(100% - 160px) 360px,rgba(255,0,130,.45),rgba(255,0,130,.16) 40%,transparent 70%)}
-body:has(#rot) .ph-hero .blob{display:none}
-body:has(#rot) .ph-hero::after{display:none}
+body:has(.rot-lavori) .ph-hero .blob{display:none}
+body:has(.rot-lavori) .ph-hero::after{display:none}
 /* ===== I nostri lavori: fila dritta senza fine dei casi studio ===== */
 /* Prove A (fila dritta) e B (curva leggera): casi studio, solo anteprima */
 /* la luce sotto la fila sfuma nel Portfolio: niente taglio netto tra le due sezioni (26/11, Bryan) */
@@ -1378,6 +1378,8 @@ body:has(#rot) .ph-hero::after{display:none}
 /* i numeri sotto la fila non si mostrano (26/11, Bryan); i bottoni restano per chi usa la tastiera */
 .rt-dots{display:none!important}
 .rot-sez{margin-bottom:-40px}
+/* in home la fila sta sotto il titolo "Storie vere": stesso stacco tra titolo e contenuto delle altre sezioni */
+.rot-home .rt{margin-top:var(--home-rt,48px)}
 .rt-dots-vecchio{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:6px;position:relative;z-index:2}
 .rt-dots button{height:34px;min-width:34px;padding:0 12px;border-radius:100px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#B9B2C4;font:700 13px/1 'Aileron';letter-spacing:.04em;transition:background .3s,color .3s,border-color .3s,min-width .4s var(--ease)}
 .rt-dots button[aria-current=true]{background:var(--grad);border-color:transparent;color:#fff;min-width:78px}
@@ -2323,13 +2325,30 @@ home_arco = f"""<section class="ar-sez chiara" id="arco" aria-label="Alcuni nost
     <div class="ar-azioni rv"><a class="btn btn-g" href="chi-siamo.html">Scopri che facce abbiamo {FRECCIA}</a><a class="link-tutti" href="contatti.html">Parlaci dei tuoi obiettivi {FRECCIA}</a></div>
   </div>
 </section>"""
+# la fila dei casi (js/ruota.js): la stessa in home sotto "Storie vere" e in I nostri lavori (26/11, Bryan)
+ROT_FILA = '''  <div class="rt" id="rot" tabindex="0" role="region" aria-roledescription="carosello" aria-label="Casi studio"><div class="rt-stage" id="rot-stage"></div>
+    <button class="rt-fr rt-prev" type="button" aria-label="Caso precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="rt-fr rt-next" type="button" aria-label="Caso successivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="rt-dots" id="rot-dots" role="group" aria-label="Scegli il caso"></div>'''
 # alternanza della home: apertura S, arco C, casi S, ruota C, recensioni S, fascia finale C, footer S
-home_casi_s = home_casi
+home_casi_s = f"""<section class="sezione rot-sez rot-home" aria-label="Casi studio">
+  <div class="wrap">
+    <div class="casi-testa">
+      <div>
+        <div class="eyebrow rv">Casi studio</div>
+        <h2 class="big rv">Storie vere<br><span class="grad-t">con numeri veri</span></h2>
+      </div>
+      <a class="btn btn-g casi-tutti rv" href="casi-studio.html">Tutti i nostri lavori {FRECCIA}</a>
+    </div>
+  </div>
+{ROT_FILA}
+</section>"""
 home_servizi_c = home_servizi  # scura: in home l'unico blocco chiaro è l'arco
 rec_s = rec.replace('<section class="rec chiara">', '<section class="rec">', 1).replace('Cosa dicono <span class="grad-t">i clienti</span>', 'La nostra <span class="grad-t">pagella</span>', 1)
 home_analisi_c = home_analisi
 pagina("index.html", "Topiko Lab", "index.html",
-       "\n".join([scena, clienti, home_arco, home_casi_s, home_servizi_c, rec_s, home_analisi_c]), scena=True)
+       "\n".join([scena, home_arco, clienti, home_casi_s, home_servizi_c, rec_s, home_analisi_c]), scena=True)  # clienti subito sopra "Storie vere" (26/11, Bryan)
 
 # come lavoriamo: passi della pagina Servizi, con la curva che si accende scorrendo (js/passi.js)
 PASSI = [("Ti ascoltiamo", "Ci racconti la tua azienda e cosa vuoi ottenere. Prima di proporre qualcosa guardiamo sito, social e inserzioni di oggi."),
@@ -2410,12 +2429,8 @@ PORTFOLIO = f"""<section class="sezione portfolio" id="portfolio">
 casi_corpo = ph_hero("Casi studio", "Cosa è cambiato", "per chi lavora con noi",
                      "Dietro le quinte dei nostri lavori: il problema da cui siamo partiti, cosa abbiamo fatto e cosa è cambiato. I numeri vengono dagli account dei clienti.")
 casi_corpo += f'''
-<section class="rot-sez" aria-label="Casi studio">
-  <div class="rt" id="rot" tabindex="0" role="region" aria-roledescription="carosello" aria-label="Casi studio"><div class="rt-stage" id="rot-stage"></div>
-    <button class="rt-fr rt-prev" type="button" aria-label="Caso precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-    <button class="rt-fr rt-next" type="button" aria-label="Caso successivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-  </div>
-  <div class="rt-dots" id="rot-dots" role="group" aria-label="Scegli il caso"></div>
+<section class="rot-sez rot-lavori" aria-label="Casi studio">
+{ROT_FILA}
 </section>
 {PORTFOLIO}
 {CTA_FINE}'''
