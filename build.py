@@ -1334,8 +1334,9 @@ body:has(#rot) .ph-hero .blob{display:none}
 body:has(#rot) .ph-hero::after{display:none}
 /* ===== I nostri lavori: fila dritta senza fine dei casi studio ===== */
 /* Prove A (fila dritta) e B (curva leggera): casi studio, solo anteprima */
-.rot-sez{position:relative;overflow:hidden}
-.rot-sez::before{content:"";position:absolute;width:1100px;height:1100px;left:50%;top:120px;margin-left:-550px;background:radial-gradient(closest-side,rgba(155,3,255,.26),rgba(255,0,130,.08) 60%,transparent);pointer-events:none}
+/* la luce sotto la fila sfuma nel Portfolio: niente taglio netto tra le due sezioni (26/11, Bryan) */
+.rot-sez{position:relative;overflow-x:clip;overflow-y:visible}
+.rot-sez::before{content:"";position:absolute;z-index:-1;width:1100px;height:1100px;left:50%;top:120px;margin-left:-550px;background:radial-gradient(closest-side,rgba(155,3,255,.26),rgba(255,0,130,.08) 60%,transparent);pointer-events:none}
 .rt{--w:1000px;--h:520px;position:relative;margin-top:0;height:calc(var(--h) + 50px);touch-action:pan-y;user-select:none;-webkit-user-select:none;outline:none}
 .rt:focus-visible{outline:2px solid rgba(255,255,255,.5);outline-offset:6px}
 .rt-stage{position:absolute;inset:0}
